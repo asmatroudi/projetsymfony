@@ -1,0 +1,51 @@
+{% extends "base-back.html.twig" %}
+
+{% block title %}
+	Evenements
+{% endblock %}
+
+{% block pagewrapper %}
+    <h1>Evenements</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Region</th>
+                <th>Description</th>
+                <th>Datev</th>
+                <th>Titre</th>
+                <th>Image</th>
+                <th>Gouvernorat</th>
+                <th>Auteur</th>
+                <th>Price</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td>{{ evenement.region }}</td>
+                <td>{{ evenement.description }}</td>
+                <td>{{ evenement.datev ? evenement.datev|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.titre }}</td>
+                <td>{{ evenement.image }}</td>
+                <td>{{ evenement.gouvernorat.nomGouver }}</td>
+                <td>{{ evenement.auteur }}</td>
+                <td>{{ evenement.price }}</td>
+                <td>
+                    <a href="{{ path('admin_evenement_show', {'idev': evenement.idev}) }}">show</a>
+                    <a href="{{ path('admin_evenement_edit', {'idev': evenement.idev}) }}">edit</a>
+
+    {{ include('evenementAdmin/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_evenement_new') }}">Create new</a>
+{% endblock %}

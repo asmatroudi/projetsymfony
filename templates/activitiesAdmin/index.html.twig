@@ -1,0 +1,48 @@
+{% extends "base-back.html.twig" %}
+
+{% block title %}
+	Activities
+{% endblock %}
+
+{% block pagewrapper %}
+    <h1>Activities</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Adresse</th>
+                <th>NumContact</th>
+                <th>Image</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Price</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for activity in activities %}
+            <tr>
+                <td>{{ activity.description }}</td>
+                <td>{{ activity.adresse }}</td>
+                <td>{{ activity.numContact }}</td>
+                <td>{{ activity.image }}</td>
+                <td>{{ activity.date ? activity.date|date('Y-m-d') : '' }}</td>
+                <td>{{ activity.type }}</td>
+                <td>{{ activity.price }}</td>
+                <td>
+                    <a href="{{ path('admin_activities_show', {'idActivity': activity.idActivity}) }}">show</a>
+                    <a href="{{ path('admin_activities_edit', {'idActivity': activity.idActivity}) }}">edit</a>
+    {{ include('activitiesAdmin/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_activities_new') }}">Create new</a>
+{% endblock %}

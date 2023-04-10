@@ -1,0 +1,48 @@
+{% extends "base-back.html.twig" %}
+
+{% block title %}
+	Hotels
+{% endblock %}
+
+{% block pagewrapper %}
+
+    <h1>Hotels</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nomhotel</th>
+                <th>NbEtoile</th>
+                <th>Site</th>
+                <th>Image</th>
+                <th>Gouvernorat</th>
+                <th>Price</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for hotel in hotels %}
+            <tr>
+                <td>{{ hotel.nomhotel }}</td>
+                <td>{{ hotel.nbEtoile }}</td>
+                <td>{{ hotel.site }}</td>
+                <td>{{ hotel.image }}</td>
+                <td>{{ hotel.gouvernorat.nomGouver }}</td>
+                <td>{{ hotel.price }}</td>
+                <td>
+                    <a href="{{ path('admin_hotel_show', {'idh': hotel.idh}) }}">show</a>
+                    <a href="{{ path('admin_hotel_edit', {'idh': hotel.idh}) }}">edit</a>
+
+    {{ include('hotelAdmin/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_hotel_new') }}">Create new</a>
+{% endblock %}
