@@ -1,26 +1,11 @@
 {% extends "base-front.html.twig" %}
 
 {% block title %}
-Home - Tounesna
-{% endblock %}
-
-{% block navs %}
-          {% if app.user and app.user.roles["role"] == "admin" %}
-          <li><a href="{{ path('app_logout') }}">Logout</a></li>
-          <li><a href="{{ path('admin') }}">Admin Dashboard</a></li>
-          {% elseif app.user and app.user.roles["role"] == "user" %}
-          <li><a href="{{ path('app_logout') }}">Logout</a></li>
-          {% else %}
-          <li><a href="{{ path('app_register_front') }}">Register</a></li>
-          <li><a href="{{ path('app_login_front') }}">Login</a></li>
-          {% endif %}
-{% endblock %}
-
-{% block mininavs %}
+Register - Tounesna
 {% endblock %}
 
 {% block content %}
-        <div class="flexslider">
+        <div style="height: 300px;" class="flexslider">
             <ul class="slides">
                 <li>
                     <div class="overlay"></div>
@@ -80,7 +65,60 @@ Home - Tounesna
         
         <div class="container">
             <div class="row">
-                <div class="our-listing owl-carousel">
+        <div class="col-xl-4" style="color: #ffffff; margin-top: 50px;"><h1>Register</h1>
+
+    {{ form_start(registrationForm,{'attr': {'novalidate': 'novalidate'}}) }}
+        <label for="inputPassword" style="color: #000000;">Nom</label>
+    <div class="form-control" style="margin: 10px 0; background: transparent; width: 260px;">
+        {{ form_row(registrationForm.nom, {
+            label: ' '
+        }) }}
+        </div>
+        <label for="inputPassword" style="color: #000000;">Prenom</label>
+    <div class="form-control" style="margin: 10px 0; background: transparent; width: 260px;">
+        {{ form_row(registrationForm.prenom, {
+            label: ' '
+        }) }}
+        </div>
+        <label for="inputPassword" style="color: #000000;">CIN</label>
+    <div class="form-control" style="margin: 10px 0; background: transparent; width: 260px;">
+        {{ form_row(registrationForm.cin, {
+            label: ' '
+        }) }}
+        </div>
+        <label for="inputPassword" style="color: #000000;">Adresse</label>
+    <div class="form-control" style="margin: 10px 0; background: transparent; width: 260px;">
+        {{ form_row(registrationForm.adresse, {
+            label: ' '
+        }) }}
+        </div>
+        <label for="inputPassword" style="color: #000000;">Age</label>
+    <div class="form-control" style="margin: 10px 0; background: transparent; width: 260px;">
+        {{ form_row(registrationForm.age, {
+            label: ' '
+        }) }}
+        </div>
+        <label for="inputPassword" style="color: #000000;">Email</label>
+    <div class="form-control" style="margin: 10px 0; background: transparent; width: 260px;">
+        {{ form_row(registrationForm.email, {
+            label: ' '
+        }) }}
+        </div>
+        <label for="inputPassword" style="color: #000000;">Password</label>
+    <div class="form-control" style="margin: 10px 0; background: transparent; width: 260px;">
+        {{ form_row(registrationForm.plainPassword, {
+            label: ' '
+        }) }}
+        </div>
+        <label for="inputPassword" style="color: #000000;">Agree Terms</label>
+    <div class="form-control" style="margin: 10px 0; background: transparent; width: 40px;">
+        {{ form_row(registrationForm.agreeTerms, {
+            label: ' '
+        }) }}
+        </div>
+
+        <button type="submit" class="btn" style="color: #000000; border: 1px solid #000000; margin-top: 20px;">Register</button>
+    {{ form_end(registrationForm) }}
                 </div> <!-- /.our-listing -->
             </div> <!-- /.row -->
         </div> <!-- /.container -->

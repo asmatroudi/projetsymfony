@@ -130,6 +130,7 @@
 									</a>
 								</form>
 							</li>
+
 						</ul>
 						<!-- ============================================================== -->
 						<!-- Right side toggle and nav items -->
@@ -280,48 +281,52 @@
 									<span class="hide-menu">Dashboard</span>
 								</a>
 							</li>
+          {% if app.user and app.user.roles["role"] == "admin" %}
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_gouvernorat_index') }}" aria-expanded="false">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('home') }}" aria-expanded="false">
 									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">Gouvernorats</span>
+									<span class="hide-menu">My Website</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_hotel_index') }}" aria-expanded="false">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_user_index') }}" aria-expanded="false">
 									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">Hotels</span>
+									<span class="hide-menu">Users</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_commentaire_index') }}" aria-expanded="false">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_logout') }}" aria-expanded="false">
 									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">Commentaires Hotels</span>
+									<span class="hide-menu">Logout</span>
+								</a>
+							</li>
+          {% elseif app.user and app.user.roles["role"] == "user" %}
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_logout') }}" aria-expanded="false">
+									<i class="mdi mdi-view-dashboard"></i>
+									<span class="hide-menu">Logout</span>
+								</a>
+							</li>
+          {% else %}
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_register') }}" aria-expanded="false">
+									<i class="mdi mdi-view-dashboard"></i>
+									<span class="hide-menu">Register</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_evenement_index') }}" aria-expanded="false">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_login') }}" aria-expanded="false">
 									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">Evenements</span>
+									<span class="hide-menu">Login</span>
 								</a>
 							</li>
-							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_activities_index') }}" aria-expanded="false">
-									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">Activités</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_produit_index') }}" aria-expanded="false">
-									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">Produits</span>
-								</a>
-							</li>
-							<li class="sidebar-item">
+          {% endif %}
+							{# <li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_plat_index') }}" aria-expanded="false">
 									<i class="mdi mdi-view-dashboard"></i>
 									<span class="hide-menu">Plats</span>
 								</a>
-							</li>
+							</li> #}
 						</ul>
 					</nav>
 					<!-- End Sidebar navigation -->

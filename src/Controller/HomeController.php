@@ -5,22 +5,15 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Hotel;
 
 #[Route('/')]
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home', methods: ['GET'])]
-    public function home(EntityManagerInterface $entityManager): Response
+    public function home(): Response
     {
-        $hotels = $entityManager
-            ->getRepository(Hotel::class)
-            ->findAll();
-            
         return $this->render('front/home.html.twig', [
             'controller_name' => 'home',
-            'hotels' => $hotels,
         ]);
     }
     
