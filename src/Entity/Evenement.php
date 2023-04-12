@@ -36,6 +36,7 @@ class Evenement
      *
      * @ORM\Column(name="description", type="string", length=300, nullable=false)
      * @Assert\NotBlank()
+     * @Assert\Length(min=10, max=30)
      */
     private $description;
 
@@ -44,6 +45,7 @@ class Evenement
      *
      * @ORM\Column(name="datev", type="date", nullable=false)
      * @Assert\NotBlank()
+     * @Assert\GreaterThan("+1 week")
      */
     private $datev;
 
@@ -68,7 +70,7 @@ class Evenement
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="auteur", referencedColumnName="idUser")
+     *   @ORM\JoinColumn(name="auteur", referencedColumnName="id")
      * })
      * @Assert\NotBlank()
      */
@@ -90,6 +92,7 @@ class Evenement
      *
      * @ORM\Column(name="price", type="integer", nullable=false)
      * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=150)
      */
     private $price;
     

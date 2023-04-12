@@ -6,6 +6,7 @@ use App\Entity\Activities;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class ActivitiesType extends AbstractType
 {
@@ -16,7 +17,13 @@ class ActivitiesType extends AbstractType
             ->add('adresse')
             ->add('numContact')
             ->add('image')
-            ->add('date')
+            ->add('date', DateType::class, [
+                'html5' => false,
+                'attr' => ['class' => 'js-datepicker'],
+                'label' => 'Date Evenement',
+                'required' => true,
+                'data' => new \DateTime('+0 day'),
+            ])
             ->add('type')
             ->add('price')
             ->add('auteur')

@@ -28,6 +28,7 @@ class Activities
      *
      * @ORM\Column(name="description", type="string", length=300, nullable=false)
      * @Assert\NotBlank()
+     * @Assert\Length(min=10, max=30)
      */
     private $description;
 
@@ -65,6 +66,7 @@ class Activities
      *
      * @ORM\Column(name="date", type="date", nullable=false)
      * @Assert\NotBlank()
+     * @Assert\GreaterThan("+0 day")
      */
     private $date;
 
@@ -81,7 +83,7 @@ class Activities
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="auteur", referencedColumnName="idUser")
+     *   @ORM\JoinColumn(name="auteur", referencedColumnName="id")
      * })
      * @Assert\NotBlank()
      */
@@ -103,6 +105,7 @@ class Activities
      *
      * @ORM\Column(name="price", type="integer", nullable=false)
      * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=150)
      */
     private $price;
     

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Commentaire
@@ -26,6 +27,8 @@ class Commentaire
      * @var string
      *
      * @ORM\Column(name="contenue", type="string", length=7000, nullable=false)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=10, max=20)
      */
     private $contenue;
 

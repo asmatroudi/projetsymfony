@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Gouvernorat
  *
  * @ORM\Table(name="gouvernorat")
  * @ORM\Entity
+ * @UniqueEntity(fields={"nomGouver"}, message="This name is already taken.")
  */
 class Gouvernorat
 {

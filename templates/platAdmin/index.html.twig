@@ -1,0 +1,43 @@
+{% extends "base-back.html.twig" %}
+
+{% block title %}
+	Plat index
+{% endblock %}
+
+{% block pagewrapper %}
+    <h1>Plat index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nomplat</th>
+                <th>Recette</th>
+                <th>Chef</th>
+                <th>Region</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plat in plats %}
+            <tr>
+                <td>{{ plat.nomplat }}</td>
+                <td>{{ plat.recette }}</td>
+                <td>{{ plat.chef }}</td>
+                <td>{{ plat.region }}</td>
+                <td>
+                    <a href="{{ path('admin_plat_show', {'idplat': plat.idplat}) }}">show</a>
+                    <a href="{{ path('admin_plat_edit', {'idplat': plat.idplat}) }}">edit</a>
+
+    {{ include('platAdmin/_delete_form.html.twig') }}
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_plat_new') }}">Create new</a>
+{% endblock %}
