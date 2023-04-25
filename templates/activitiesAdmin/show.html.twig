@@ -23,11 +23,12 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ activity.image }}</td>
+                <td>
+						<img style="height: 100px; object-fit: cover;" class="img-fluid" src="{{ asset('/uploads/' ~ activity.image) }}" alt=""></td>
             </tr>
             <tr>
                 <th>Date</th>
-                <td>{{ activity.date ? activity.date|date('Y-m-d') : '' }}</td>
+                <td>{{ activity.date ? activity.date|date('d-m-Y') : '' }}</td>
             </tr>
             <tr>
                 <th>Type</th>

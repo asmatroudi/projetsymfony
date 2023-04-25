@@ -7,6 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use App\Entity\Gouvernorat;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ActivitiesType extends AbstractType
 {
@@ -16,7 +19,7 @@ class ActivitiesType extends AbstractType
             ->add('description')
             ->add('adresse')
             ->add('numContact')
-            ->add('image')
+            ->add('image', FileType::class, ['mapped' => false])
             ->add('date', DateType::class, [
                 'html5' => false,
                 'attr' => ['class' => 'js-datepicker'],
@@ -27,7 +30,10 @@ class ActivitiesType extends AbstractType
             ->add('type')
             ->add('price')
             ->add('auteur')
-            ->add('gouvernorat')
+            ->add('gouvernorat', EntityType::class, [
+                'class' => Gouvernorat::class,
+                'choice_label' => 'nomGouver',
+            ]);
         ;
     }
 

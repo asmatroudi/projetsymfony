@@ -19,7 +19,9 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ produit.image }}</td>
+					<td>
+						<img style="height: 100px; object-fit: cover;" class="img-fluid" src="{{ asset('/uploads/' ~ produit.image) }}" alt="">
+					</td>
             </tr>
             <tr>
                 <th>Price</th>

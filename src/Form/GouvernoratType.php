@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class GouvernoratType extends AbstractType
 {
@@ -24,6 +25,7 @@ class GouvernoratType extends AbstractType
                     'SUD' => 'SUD',
                 ]
             ])
+            ->add('image', FileType::class, ['mapped' => false])
         ;
     }
 

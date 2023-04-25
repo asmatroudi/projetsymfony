@@ -4,12 +4,13 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\HotelRepository;
 
 /**
  * Hotel
  *
  * @ORM\Table(name="hotel", indexes={@ORM\Index(name="gouvernorat_fk", columns={"gouvernorat"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=HotelRepository::class)
  */
 class Hotel
 {
@@ -31,9 +32,10 @@ class Hotel
     private $nomhotel;
 
     /**
-     * @var string
+     * @var int
      *
-     * @ORM\Column(name="nb_etoile", type="string", length=56, nullable=false)
+     * @ORM\Column(name="nb_etoile", type="integer", length=11, nullable=false)
+     * @Assert\NotBlank()
      * @Assert\Range(min=1, max=5)
      */
     private $nbEtoile;
@@ -42,6 +44,7 @@ class Hotel
      * @var string
      *
      * @ORM\Column(name="site", type="string", length=7000, nullable=false)
+     * @Assert\NotBlank()
      * @Assert\Regex(
      *      pattern="/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/",
      *      message="The website URL '{{ value }}' is not a valid format."
@@ -53,7 +56,6 @@ class Hotel
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
-     * @Assert\NotBlank()
      */
     private $image;
 
@@ -72,6 +74,7 @@ class Hotel
      * @var int
      *
      * @ORM\Column(name="price", type="integer", nullable=false)
+     * @Assert\NotBlank()
      * @Assert\Range(min=50, max=150)
      */
     private $price;
@@ -105,12 +108,12 @@ class Hotel
         return $this;
     }
 
-    public function getNbEtoile(): ?string
+    public function getNbEtoile(): ?int
     {
         return $this->nbEtoile;
     }
 
-    public function setNbEtoile(string $nbEtoile): self
+    public function setNbEtoile(int $nbEtoile): self
     {
         $this->nbEtoile = $nbEtoile;
 

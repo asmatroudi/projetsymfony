@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Hotel;
 use App\Form\HotelType;
+use App\Repository\HotelRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,15 +14,30 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/hotel')]
 class HotelAdminController extends AbstractController
 {
+    #[Route('/search', name: 'hotel_search')]
+    public function search(Request $request, HotelRepository $hotelRepository): Response
+    {
+        $query = $request->query->get('q');
+        $hotels = $hotelRepository->findByNom($query);
+
+        return $this->render('hotelAdmin/search.html.twig', [
+            'hotels' => $hotels,
+            'query' => $query,
+        ]);
+    }
+    
     #[Route('/', name: 'admin_hotel_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EntityManagerInterface $entityManager, Request $request, HotelRepository $hotelRepository): Response
     {
         $hotels = $entityManager
             ->getRepository(Hotel::class)
             ->findAll();
+        $query = $request->query->get('q');
+        $hotels = $hotelRepository->findByNom($query);
 
         return $this->render('hotelAdmin/index.html.twig', [
             'hotels' => $hotels,
+            'query' => $query,
         ]);
     }
 
@@ -33,6 +49,11 @@ class HotelAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get('hotel')['image'];
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($uploads_directory, $filename);
+            $hotel->setImage($filename);
             $entityManager->persist($hotel);
             $entityManager->flush();
 
@@ -60,6 +81,12 @@ class HotelAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get('hotel')['image'];
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($uploads_directory, $filename);
+            $hotel->setImage($filename);
+            $entityManager->persist($hotel);
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_hotel_index', [], Response::HTTP_SEE_OTHER);

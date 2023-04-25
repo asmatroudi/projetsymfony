@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <th>Datev</th>
-                <td>{{ evenement.datev ? evenement.datev|date('Y-m-d') : '' }}</td>
+                <td>{{ evenement.datev ? evenement.datev|date('d-m-Y') : '' }}</td>
             </tr>
             <tr>
                 <th>Titre</th>
@@ -27,7 +27,8 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ evenement.image }}</td>
+                <td>
+						<img style="height: 100px; object-fit: cover;" class="img-fluid" src="{{ asset('/uploads/' ~ evenement.image) }}" alt=""></td>
             </tr>
             <tr>
                 <th>Gouvernorat</th>

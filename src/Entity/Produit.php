@@ -4,12 +4,13 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\ProduitRepository;
 
 /**
  * Produit
  *
  * @ORM\Table(name="produit")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ProduitRepository::class)
  */
 class Produit
 {
@@ -53,7 +54,6 @@ class Produit
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
-     * @Assert\NotBlank()
      */
     private $image;
 

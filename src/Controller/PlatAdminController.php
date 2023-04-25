@@ -3,25 +3,116 @@
 namespace App\Controller;
 
 use App\Entity\Plat;
+use App\Entity\Gouvernorat;
 use App\Form\PlatType;
+use App\Repository\PlatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use CMEN\GoogleChartsBundle\GoogleCharts\Charts\PieChart;
 
 #[Route('/admin/plat')]
 class PlatAdminController extends AbstractController
 {
-    #[Route('/', name: 'admin_plat_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/search', name: 'plat_search')]
+    public function search(EntityManagerInterface $entityManager, Request $request, PlatRepository $platRepository): Response
     {
         $plats = $entityManager
             ->getRepository(Plat::class)
             ->findAll();
+        $gouvernorats = $entityManager
+            ->getRepository(Gouvernorat::class)
+            ->findAll();
+            
+        $pieChart = new PieChart();
+
+        $charts = [['Plat', 'Number per Gouvernorat']];
+
+        foreach ($gouvernorats as $g) {
+            $gouvernoratN = 0;
+            foreach ($plats as $p) {
+                if ($g == $p->getGouvernorat()) {
+                    $gouvernoratN++;
+                }
+            }
+
+            array_push($charts, [$g->getNomGouver(), $gouvernoratN]);
+        }
+        
+        $pieChart->getData()->setArrayToDataTable($charts);
+
+        // dd($pieChart);
+
+        $pieChart->getOptions()->setTitle('Plats Number per Gouvernorats');
+        $pieChart->getOptions()->setHeight(400);
+        $pieChart->getOptions()->setWidth(400);
+        $pieChart
+            ->getOptions()
+            ->getTitleTextStyle()
+            ->setColor('#07600');
+        $pieChart
+            ->getOptions()
+            ->getTitleTextStyle()
+            ->setFontSize(25);
+        $query = $request->query->get('q');
+        $plats = $platRepository->findByNom($query);
+
+        return $this->render('platAdmin/search.html.twig', [
+            'plats' => $plats,
+            'query' => $query,
+            'piechart' => $pieChart,
+        ]);
+    }
+    
+    #[Route('/', name: 'admin_plat_index', methods: ['GET'])]
+    public function index(EntityManagerInterface $entityManager, Request $request, PlatRepository $platRepository): Response
+    {
+        $plats = $entityManager
+            ->getRepository(Plat::class)
+            ->findAll();
+        $gouvernorats = $entityManager
+            ->getRepository(Gouvernorat::class)
+            ->findAll();
+            
+        $pieChart = new PieChart();
+
+        $charts = [['Plat', 'Number per Gouvernorat']];
+
+        foreach ($gouvernorats as $g) {
+            $gouvernoratN = 0;
+            foreach ($plats as $p) {
+                if ($g == $p->getGouvernorat()) {
+                    $gouvernoratN++;
+                }
+            }
+
+            array_push($charts, [$g->getNomGouver(), $gouvernoratN]);
+        }
+        
+        $pieChart->getData()->setArrayToDataTable($charts);
+
+        // dd($pieChart);
+
+        $pieChart->getOptions()->setTitle('Plats Number per Gouvernorats');
+        $pieChart->getOptions()->setHeight(400);
+        $pieChart->getOptions()->setWidth(400);
+        $pieChart
+            ->getOptions()
+            ->getTitleTextStyle()
+            ->setColor('#07600');
+        $pieChart
+            ->getOptions()
+            ->getTitleTextStyle()
+            ->setFontSize(25);
+        $query = $request->query->get('q');
+        $plats = $platRepository->findByNom($query);
 
         return $this->render('platAdmin/index.html.twig', [
             'plats' => $plats,
+            'piechart' => $pieChart,
+            'query' => $query,
         ]);
     }
 
@@ -33,6 +124,11 @@ class PlatAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get('plat')['image'];
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($uploads_directory, $filename);
+            $plat->setImage($filename);
             $entityManager->persist($plat);
             $entityManager->flush();
 
@@ -60,6 +156,12 @@ class PlatAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get('plat')['image'];
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($uploads_directory, $filename);
+            $plat->setImage($filename);
+            $entityManager->persist($plat);
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_plat_index', [], Response::HTTP_SEE_OTHER);

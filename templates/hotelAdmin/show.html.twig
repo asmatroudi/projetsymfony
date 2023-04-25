@@ -23,7 +23,8 @@
             </tr>
             <tr>
                 <th>Image</th>
-                <td>{{ hotel.image }}</td>
+                <td>
+						<img style="height: 100px; object-fit: cover;" class="img-fluid" src="{{ asset('/uploads/' ~ hotel.image) }}" alt=""></td>
             </tr>
             <tr>
                 <th>Price</th>

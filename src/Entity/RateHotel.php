@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * RateHotel
@@ -32,6 +33,8 @@ class RateHotel
      * @var float|null
      *
      * @ORM\Column(name="rate", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
+     * @Assert\NotBlank()
+     * @Assert\Range(min=1, max=5)
      */
     private $rate = NULL;
 

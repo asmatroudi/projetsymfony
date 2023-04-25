@@ -5,12 +5,13 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use App\Repository\GouvernoratRepository;
 
 /**
  * Gouvernorat
  *
  * @ORM\Table(name="gouvernorat")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=GouvernoratRepository::class)
  * @UniqueEntity(fields={"nomGouver"}, message="This name is already taken.")
  */
 class Gouvernorat
@@ -39,6 +40,13 @@ class Gouvernorat
      * @Assert\NotBlank()
      */
     private $region;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=255, nullable=false)
+     */
+    private $image;
 
     public function getIdGouver(): ?int
     {
@@ -69,9 +77,21 @@ class Gouvernorat
         return $this;
     }
 
-    public function __toString(): string {
-        return $this->nomGouver;
+    public function getImage(): ?string
+    {
+        return $this->image;
     }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    // public function __toString(): string {
+    //     return $this->nomGouver;
+    // }
 
 
 }

@@ -33,6 +33,11 @@ class ProduitAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get('produit')['image'];
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($uploads_directory, $filename);
+            $produit->setImage($filename);
             $entityManager->persist($produit);
             $entityManager->flush();
 
@@ -60,6 +65,12 @@ class ProduitAdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $request->files->get('produit')['image'];
+            $uploads_directory = $this->getParameter('uploads_directory');
+            $filename = md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($uploads_directory, $filename);
+            $produit->setImage($filename);
+            $entityManager->persist($produit);
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_produit_index', [], Response::HTTP_SEE_OTHER);

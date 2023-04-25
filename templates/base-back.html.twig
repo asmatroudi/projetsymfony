@@ -13,6 +13,8 @@
 		<title>
 			{% block title %}{% endblock %}
 		</title>
+		<link
+		rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
 		<!-- Favicon icon -->
 		<link
 		rel="icon" type="image/png" sizes="16x16" href="../../../assets/images/favicon.png">
@@ -24,9 +26,9 @@
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
-		    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
+				    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+				    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+				<![endif]-->
 	</head>
 
 	<body>
@@ -61,7 +63,7 @@
 							<span
 								class="logo-text">
 								<!-- dark Logo text -->
-								<img src="../../../assets/images/logotounesna.png" alt="homepage" class="light-logo" style="height: 80px; width: 180px;" />
+								<img src="../../../assets/images/logotounesna.png" alt="homepage" class="light-logo" style="height: 80px; width: 180px;"/>
 
 							</span>
 							<!-- Logo icon -->
@@ -130,7 +132,6 @@
 									</a>
 								</form>
 							</li>
-
 						</ul>
 						<!-- ============================================================== -->
 						<!-- Right side toggle and nav items -->
@@ -281,52 +282,60 @@
 									<span class="hide-menu">Dashboard</span>
 								</a>
 							</li>
-          {% if app.user and app.user.roles["role"] == "admin" %}
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('home') }}" aria-expanded="false">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_gouvernorat_index') }}" aria-expanded="false">
 									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">My Website</span>
+									<span class="hide-menu">Gouvernorats</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_user_index') }}" aria-expanded="false">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_hotel_index') }}" aria-expanded="false">
 									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">Users</span>
+									<span class="hide-menu">Hotels</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_logout') }}" aria-expanded="false">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_commentaire_index') }}" aria-expanded="false">
 									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">Logout</span>
-								</a>
-							</li>
-          {% elseif app.user and app.user.roles["role"] == "user" %}
-							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_logout') }}" aria-expanded="false">
-									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">Logout</span>
-								</a>
-							</li>
-          {% else %}
-							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_register') }}" aria-expanded="false">
-									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">Register</span>
+									<span class="hide-menu">Commentaires Hotels</span>
 								</a>
 							</li>
 							<li class="sidebar-item">
-								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_login') }}" aria-expanded="false">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_rate_hotel_index') }}" aria-expanded="false">
 									<i class="mdi mdi-view-dashboard"></i>
-									<span class="hide-menu">Login</span>
+									<span class="hide-menu">Ratings Hotels</span>
 								</a>
 							</li>
-          {% endif %}
-							{# <li class="sidebar-item">
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_evenement_index') }}" aria-expanded="false">
+									<i class="mdi mdi-view-dashboard"></i>
+									<span class="hide-menu">Evenements</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_activities_index') }}" aria-expanded="false">
+									<i class="mdi mdi-view-dashboard"></i>
+									<span class="hide-menu">Activités</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_produit_index') }}" aria-expanded="false">
+									<i class="mdi mdi-view-dashboard"></i>
+									<span class="hide-menu">Produits</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_commande_index') }}" aria-expanded="false">
+									<i class="mdi mdi-view-dashboard"></i>
+									<span class="hide-menu">Commandes</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
 								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_plat_index') }}" aria-expanded="false">
 									<i class="mdi mdi-view-dashboard"></i>
 									<span class="hide-menu">Plats</span>
 								</a>
-							</li> #}
+							</li>
 						</ul>
 					</nav>
 					<!-- End Sidebar navigation -->
@@ -339,43 +348,39 @@
 			<!-- ============================================================== -->
 			<!-- Page wrapper  -->
 			<!-- ============================================================== -->
-			
-	<div style="padding: 40px;" class="page-wrapper">
-			{% block pagewrapper %}
 
-		{% endblock %}
-		</div>
+				<div style="padding: 40px;" class="page-wrapper">{% block pagewrapper %}{% endblock %} </div>
+				<!-- ============================================================== -->
+			<!-- End Page wrapper  -->
+				<!-- ============================================================== -->
+			</div>
 			<!-- ============================================================== -->
-		<!-- End Page wrapper  -->
+			<!-- End Wrapper -->
 			<!-- ============================================================== -->
-		</div>
-		<!-- ============================================================== -->
-		<!-- End Wrapper -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- All Jquery -->
-		<!-- ============================================================== --><script src="../../../assets/libs/jquery/dist/jquery.min.js"> </script>
-		<!-- Bootstrap tether Core JavaScript -->
-		<script src="../../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="../../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-		<script src="../../../assets/extra-libs/sparkline/sparkline.js"></script>
-		<!--Wave Effects -->
-		<script src="../../../dist/js/waves.js"></script>
-		<!--Menu sidebar -->
-		<script src="../../../dist/js/sidebarmenu.js"></script>
-		<!--Custom JavaScript -->
-		<script src="../../../dist/js/custom.min.js"></script>
-		<!--This page JavaScript -->
-		<!-- <script src="../../dist/js/pages/dashboards/dashboard1.js"></script> -->
-		<!-- Charts js Files --><script src="../../../assets/libs/flot/excanvas.js"> </script>
-		<script src="../../../assets/libs/flot/jquery.flot.js"></script>
-		<script src="../../../assets/libs/flot/jquery.flot.pie.js"></script>
-		<script src="../../assets/libs/flot/jquery.flot.time.js"></script>
-		<script src="../../../assets/libs/flot/jquery.flot.stack.js"></script>
-		<script src="../../../assets/libs/flot/jquery.flot.crosshair.js"></script>
-		<script src="../../../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-		<script src="../../../dist/js/pages/chart/chart-page-init.js"></script>
+			<!-- ============================================================== -->
+			<!-- All Jquery -->
+			<!-- ============================================================== --><script src="../../../assets/libs/jquery/dist/jquery.min.js"> </script>
+			<!-- Bootstrap tether Core JavaScript -->
+			<script src="../../../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+			<script src="../../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+			<script src="../../../assets/extra-libs/sparkline/sparkline.js"></script>
+			<!--Wave Effects -->
+			<script src="../../../dist/js/waves.js"></script>
+			<!--Menu sidebar -->
+			<script src="../../../dist/js/sidebarmenu.js"></script>
+			<!--Custom JavaScript -->
+			<script src="../../../dist/js/custom.min.js"></script>
+			<!--This page JavaScript -->
+			<!-- <script src="../../dist/js/pages/dashboards/dashboard1.js"></script> -->
+			<!-- Charts js Files --><script src="../../../assets/libs/flot/excanvas.js"> </script>
+			<script src="../../../assets/libs/flot/jquery.flot.js"></script>
+			<script src="../../../assets/libs/flot/jquery.flot.pie.js"></script>
+			<script src="../../assets/libs/flot/jquery.flot.time.js"></script>
+			<script src="../../../assets/libs/flot/jquery.flot.stack.js"></script>
+			<script src="../../../assets/libs/flot/jquery.flot.crosshair.js"></script>
+			<script src="../../../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
+			<script src="../../../dist/js/pages/chart/chart-page-init.js"></script>
 
-	</body>
+		</body>
 
-</html>
+	</html>

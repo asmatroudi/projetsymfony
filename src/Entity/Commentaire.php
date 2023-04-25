@@ -5,12 +5,14 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\CommentaireRepository;
+use App\Validator\ContainsBadWords;
 
 /**
  * Commentaire
  *
  * @ORM\Table(name="commentaire", indexes={@ORM\Index(name="id_ev_fk", columns={"id_event"}), @ORM\Index(name="id_hotel", columns={"id_hotel"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=CommentaireRepository::class)
  */
 class Commentaire
 {
@@ -28,7 +30,8 @@ class Commentaire
      *
      * @ORM\Column(name="contenue", type="string", length=7000, nullable=false)
      * @Assert\NotBlank()
-     * @Assert\Length(min=10, max=20)
+     * @Assert\Length(min=2, max=50)
+     * @ContainsBadWords
      */
     private $contenue;
 
@@ -58,7 +61,7 @@ class Commentaire
      *
      * @ORM\Column(name="id_event", type="integer", nullable=false)
      */
-    private $idEvent;
+    private $idCommentaire;
 
     public function getIdcom(): ?int
     {
@@ -113,14 +116,14 @@ class Commentaire
         return $this;
     }
 
-    public function getIdEvent(): ?int
+    public function getIdCommentaire(): ?int
     {
-        return $this->idEvent;
+        return $this->idCommentaire;
     }
 
-    public function setIdEvent(int $idEvent): self
+    public function setIdCommentaire(int $idCommentaire): self
     {
-        $this->idEvent = $idEvent;
+        $this->idCommentaire = $idCommentaire;
 
         return $this;
     }

@@ -79,6 +79,6 @@ class CommentaireController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_commentaire_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('hotels', [], Response::HTTP_SEE_OTHER);
     }
 }

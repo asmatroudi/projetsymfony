@@ -38,18 +38,19 @@ Gouvernorats - Tounesna
             
                 <div class="row"><!-- first row -->
         {% for gouvernorat in gouvernorats %}
-                
+                <a href="{{ path('app_gouvernorat_show', {'idGouver': gouvernorat.idGouver}) }}">
                 	<div class="col-md-3"><!-- first column -->
                         <div class="widget-item">
                             <h3 class="widget-title">{{ gouvernorat.nomGouver }}</h3>
                             <div class="sample-thumb">
-                                <img src="../images/about_1.jpg" alt="about us" title="about us">
+                                <img src="{{ asset('/uploads/' ~ gouvernorat.image) }}" alt="image" title="image">
                             </div> <!-- /.sample-thumb -->
                             <h4 class="consult-title">{{ gouvernorat.region }}</h4>
                             {# <p>{{ gouvernorat.description }}</p> #}
                         </div> <!-- /.widget-item -->
                     </div> <!-- /.col-md-4 -->
                     {# <a href="{{ path('app_gouvernorat_show', {'idGouver': gouvernorat.idGouver}) }}">show</a> #}
+                </a>
         {% else %}
                 
                 	<div class="col-md-3"><!-- first column -->

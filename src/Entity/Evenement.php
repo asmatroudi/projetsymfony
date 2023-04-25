@@ -5,12 +5,13 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\EvenementRepository;
 
 /**
  * Evenement
  *
  * @ORM\Table(name="evenement", indexes={@ORM\Index(name="gouv_fk", columns={"gouvernorat"}), @ORM\Index(name="auteur_fk", columns={"auteur"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=EvenementRepository::class)
  */
 class Evenement
 {
@@ -54,6 +55,10 @@ class Evenement
      *
      * @ORM\Column(name="titre", type="string", length=300, nullable=false)
      * @Assert\NotBlank()
+     * @Assert\Regex(
+     *     pattern="/^[a-zA-Z]+$/",
+     *     message="The name should contain only letters."
+     * )
      */
     private $titre;
 
@@ -61,7 +66,6 @@ class Evenement
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=255, nullable=false)
-     * @Assert\NotBlank()
      */
     private $image;
 

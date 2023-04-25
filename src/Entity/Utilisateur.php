@@ -3,12 +3,13 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UtilisateurRepository;
 
 /**
  * Utilisateur
  *
  * @ORM\Table(name="utilisateur")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=UtilisateurRepository::class)
  */
 class Utilisateur
 {

@@ -5,12 +5,13 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\ActivitiesRepository;
 
 /**
  * Activities
  *
  * @ORM\Table(name="activities", indexes={@ORM\Index(name="gouvernorat", columns={"gouvernorat"}), @ORM\Index(name="auteur", columns={"auteur"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass=ActivitiesRepository::class)
  */
 class Activities
 {
@@ -44,6 +45,7 @@ class Activities
      * @var string
      *
      * @ORM\Column(name="num_contact", type="string", length=300, nullable=false)
+     * @Assert\NotBlank()
      * @Assert\Length(
      *      min = 8,
      *      max = 8,
@@ -57,7 +59,6 @@ class Activities
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=300, nullable=false)
-     * @Assert\NotBlank()
      */
     private $image;
 

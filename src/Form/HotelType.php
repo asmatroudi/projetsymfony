@@ -3,9 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Hotel;
+use App\Entity\Gouvernorat;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class HotelType extends AbstractType
 {
@@ -16,8 +19,12 @@ class HotelType extends AbstractType
             ->add('nbEtoile')
             ->add('price')
             ->add('site')
-            ->add('image')
-            ->add('gouvernorat')
+            ->add('image', FileType::class, ['mapped' => false])
+            ->add('gouvernorat', EntityType::class, [
+                'class' => Gouvernorat::class,
+                'choice_label' => 'nomGouver',
+            ]);
+
         ;
     }
 
