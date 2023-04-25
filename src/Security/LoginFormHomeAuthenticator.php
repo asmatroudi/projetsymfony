@@ -14,23 +14,35 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 
 class LoginFormHomeAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login_front';
+    
+    private UserRepository $userRepository;
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator)
-    {
-    }
+    public function __construct(private UrlGeneratorInterface $urlGenerator, private EntityManagerInterface $entityManager, UserRepository $userRepository)
+{
+    $this->userRepository = $userRepository;
+}
 
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email', '');
-
+    
+        // Check if the user is blocked
+        $user = $this->userRepository->findOneByEmail($email);
+        if ($user && $user->isBlocked()) {
+            throw new CustomUserMessageAuthenticationException('Your account has been blocked. Please contact an administrator for assistance.');
+        }
+    
         $request->getSession()->set(Security::LAST_USERNAME, $email);
-
+    
         return new Passport(
             new UserBadge($email),
             new PasswordCredentials($request->request->get('password', '')),

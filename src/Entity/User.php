@@ -50,6 +50,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $role = null;
 
+    #[ORM\Column(length: 255)]
+    private ?bool $isBlocked = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -208,6 +211,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->role = $role;
 
+        return $this;
+    }
+    
+    public function isBlocked(): bool
+    {
+        return $this->isBlocked;
+    }
+    
+    public function setIsBlocked(bool $isBlocked): self
+    {
+        $this->isBlocked = $isBlocked;
+    
+        // if the user is currently logged in, log them out
+        // if ($isBlocked && $this->isActive()) {
+        //     $this->setIsActive(false);
+        // }
+    
         return $this;
     }
 }

@@ -14,8 +14,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use App\Form\ProfileType;
 
-#[Route('/user')]
-class UserController extends AbstractController
+#[Route('/admin/user')]
+class UserAdminController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
@@ -102,7 +102,7 @@ class UserController extends AbstractController
         ]);
     }
     
-    #[Route('/{id}/editprofile', name: 'app_user_edit_profile', methods: ['GET', 'POST'])]
+    #[Route('/{id}/editprofile', name: 'admin_user_edit_profile', methods: ['GET', 'POST'])]
     public function editProfile(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         // $user = $this->getUser();
@@ -125,13 +125,13 @@ class UserController extends AbstractController
             }
         }
 
-        return $this->renderForm('profile/edit.html.twig', [
+        return $this->renderForm('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
     
-    #[Route('/{id}/deleteprofile', name: 'app_user_delete_profile', methods: ['POST'])]
+    #[Route('/{id}/deleteprofile', name: 'admin_user_delete_profile', methods: ['POST'])]
     public function deleteAccount(Request $request, User $user, UserRepository $userRepository, TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authChecker): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
@@ -145,7 +145,7 @@ class UserController extends AbstractController
             $tokenStorage->getToken()->setAuthenticated(false);
         }
 
-        return $this->redirectToRoute('home', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin', [], Response::HTTP_SEE_OTHER);
     }
 
 }

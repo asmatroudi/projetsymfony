@@ -16,20 +16,4 @@ class AdminController extends AbstractController
             'controller_name' => 'admin',
         ]);
     }
-    
-    #[Route('/login', name: 'login_admin')]
-    public function login(): Response
-    {
-        return $this->render('back/login.html.twig', [
-            'controller_name' => 'login',
-        ]);
-    }
-    
-    #[Route('/register', name: 'register_admin')]
-    public function regsiter(): Response
-    {
-        return $this->render('back/register.html.twig', [
-            'controller_name' => 'register',
-        ]);
-    }
 }

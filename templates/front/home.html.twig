@@ -5,27 +5,20 @@ Home - Tounesna
 {% endblock %}
 
 {% block navs %}
-    <li class="active"><a href="{{ path('home') }}">Home</a></li>
-    <li><a href="{{ path('gouvernorats') }}">Gouvernorats</a></li>
-    <li><a href="{{ path('hotels') }}">Hotels</a></li>
-    <li><a href="{{ path('plats') }}">Plats</a></li>
-    <li><a href="{{ path('activities') }}">Activities</a></li>
-    <li><a href="{{ path('events') }}">events</a></li>
-    <li><a href="{{ path('shop') }}">shop</a></li>
-    {# <li><a href="{{ path('aboutus') }}">About Us</a></li> #}
-    {# <li><a href="{{ path('contact') }}">Contact</a></li> #}
+          {% if app.user and app.user.roles["role"] == "admin" %}
+          <li><a href="{{ path('app_logout') }}">Logout</a></li>
+          <li><a href="{{ path('app_user_edit_profile', {'id': app.user.id}) }}">My Profile</a></li>
+          <li><a href="{{ path('admin') }}">Admin Dashboard</a></li>
+          {% elseif app.user and app.user.roles["role"] == "user" %}
+          <li><a href="{{ path('app_user_edit_profile', {'id': app.user.id}) }}">My Profile</a></li>
+          <li><a href="{{ path('app_logout') }}">Logout</a></li>
+          {% else %}
+          <li><a href="{{ path('app_register_front') }}">Register</a></li>
+          <li><a href="{{ path('app_login_front') }}">Login</a></li>
+          {% endif %}
 {% endblock %}
 
 {% block mininavs %}
-    <li class="active"><a href="{{ path('home') }}">Home</a></li>
-    <li><a href="{{ path('gouvernorats') }}">Gouvernorats</a></li>
-    <li><a href="{{ path('hotels') }}">Hotels</a></li>
-    <li><a href="{{ path('plats') }}">Plats</a></li>
-    <li><a href="{{ path('activities') }}">Activities</a></li>
-    <li><a href="{{ path('events') }}">events</a></li>
-    <li><a href="{{ path('shop') }}">shop</a></li>
-    {# <li><a href="{{ path('aboutus') }}">About Us</a></li> #}
-    {# <li><a href="{{ path('contact') }}">Contact</a></li> #}
 {% endblock %}
 
 {% block content %}
@@ -90,31 +83,6 @@ Home - Tounesna
         <div class="container">
             <div class="row">
                 <div class="our-listing owl-carousel">
-        {% for hotel in hotels %}
-                    <div class="list-item">
-                        <div class="list-thumb">
-                            <div class="title">
-                                <h4>{{ hotel.gouvernorat.nomGouver }}</h4>
-                            </div>
-                            <img src="{{ asset('/uploads/' ~ hotel.image) }}" alt="destination 1">
-                        </div> <!-- /.list-thumb -->
-                        <div class="list-content">
-                        <div style="display: flex;">
-                            <h5 style="margin-left: 0; margin-right: auto;">{{ hotel.site }}</h5>
-                            <h5 style="margin-right: 0; margin-left: auto; color: #78b999;">{{ hotel.nbEtoile }}</h5>
-                        </div>
-                        <div style="display: flex;">
-                            <span style="margin-left: 0; margin-right: auto;">{{ hotel.nomhotel }}</span>
-                            <span style="margin-right: 0; margin-left: auto; color: #78b999;">{{ hotel.price }} TND</span>
-                        </div>
-                            <a href="#" class="price-btn">Réserver</a>
-                        </div> <!-- /.list-content -->
-                    </div> <!-- /.list-item -->
-        {% else %}
-                    <div class="list-item">
-                    no records found
-            </div>
-        {% endfor %}
                 </div> <!-- /.our-listing -->
             </div> <!-- /.row -->
         </div> <!-- /.container -->
