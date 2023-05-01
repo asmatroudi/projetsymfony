@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTime;
+use Symfony\Component\Security\Core\Security;
+
 
 #[Route('/evenement')]
 class EvenementController extends AbstractController
@@ -39,10 +41,12 @@ class EvenementController extends AbstractController
     }
 
     #[Route('/{id}/participer', name: 'app_participation_event_participer', methods: ['GET', 'POST'])]
-    public function participerEvent(Request $request, ParticipationEventRepository $participationRepository, UtilisateurRepository $userRepository, Evenement $event): Response
+    public function participerEvent(Security $security,Request $request, ParticipationEventRepository $participationRepository, UtilisateurRepository $userRepository, Evenement $event): Response
     {
+        $user = $security->getUser();
+
         $participation = new ParticipationEvent();
-        $user = $userRepository->find(21);
+        //$user = $userRepository->find(21);
         $form = $this->createForm(ParticipationEventType::class, $participation);
         $form->handleRequest($request);
     

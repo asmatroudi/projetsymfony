@@ -50,15 +50,16 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
 
         // For example:
         if ($user) {
-            if ($user->getRoles()["role"] == "admin") {
+            if ($user->getRoles()["role"] == "ROLE_ADMIN") {
                 // dd($this->getUser()->getRoles()["role"]);
             return new RedirectResponse($this->urlGenerator->generate('admin'));
             }
-            if ($user->getRoles()["role"] == "user") {
+            if ($user->getRoles()["role"] == "ROLE_USER") {
                 // dd($this->getUser()->getRoles()["role"]);
-            return new RedirectResponse($this->urlGenerator->generate('home'));
+            return new RedirectResponse($this->urlGenerator->generate('AC_List'));
             }
         }
+        return new RedirectResponse($this->urlGenerator->generate('AC_List'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

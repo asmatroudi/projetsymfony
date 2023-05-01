@@ -1,0 +1,56 @@
+<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+<link rel="stylesheet" href="{{asset('Amin/css/bootstrap.min.css')}}">
+<link rel="stylesheet" href="{{asset('Amin/css/owl.carousel.min.css')}}">
+<link rel="stylesheet" href="{{asset('Amin/css/magnific-popup.css')}}">
+<link rel="stylesheet" href="{{asset('Amin/css/font-awesome.min.css')}}">
+<link rel="stylesheet" href="{{asset('Amin/css/themify-icons.css')}}">
+<link rel="stylesheet" href="{{asset('Amin/css/nice-select.css')}}">
+<link rel="stylesheet" href="{{asset('Amin/css/flaticon.css')}}">
+<link rel="stylesheet" href="{{asset('Amin/css/gijgo.css')}}">
+<link rel="stylesheet" href="{{asset('Amin/css/animate.css')}}">
+<link rel="stylesheet" href="{{asset('Amin/css/slicknav.css')}}">
+<link rel="stylesheet" href="{{asset('Amin/css/style.css')}}">
+
+
+<div class="single-post">
+
+	<div class="blog_details">
+		<h2>{{article.titre}}</h2>
+		<ul class="blog-info-link mt-3 mb-4">
+			<li>
+				<i class="fa fa-user"></i>
+				Tunisie ,{{article.idGouv.nomGouver}}
+			</li>
+
+		</ul>
+		<p class="excert">{{article.description}}
+
+		</p>
+
+	</div>
+</div>
+<div class="navigation-top">
+	<div class="d-sm-flex justify-content-between text-center">
+		<p class="like-info">
+			<span class="align-middle">
+				<i class="fa-sharp fa-solid fa-calendar-days"></i>
+			</span>
+			{{ article.date|date('d/m/Y') }}
+		</p>
+
+		<p class="like-info">
+			<span class="align-middle">
+				<i class="fa-solid fa-temperature-three-quarters"></i>
+			</span>
+			Température Moyenne :
+			{{ article.tempMoyenne}}
+		</p>
+
+		<div
+			class="col-sm-4 text-center my-2 my-sm-0"><!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
+		</div>
+
+	</div>
+
+</div>

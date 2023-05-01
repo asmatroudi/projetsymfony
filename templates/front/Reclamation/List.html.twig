@@ -1,0 +1,236 @@
+{% extends "base-front.html.twig" %}
+
+{% block title %}
+	Article
+{% endblock %}
+
+{% block navs %}
+
+
+	<li ><a  href="{{ path('AC_List') }}">Articles</a></li>
+	<li><a href="{{ path('hotels') }}">Hotels</a></li>
+	<li><a href="{{ path('plats') }}">Plats</a></li>
+	<li><a href="{{ path('activities') }}">Activities</a></li>
+	<li><a href="{{ path('events') }}">events</a></li>
+	{% if app.user %}
+		<li class="active"><a href="{{ path('List_Rec') }}">Profile</a></li>
+	{% endif %}	{#  	<li ><a href="{{ path('gouvernorats') }}"></a></li>
+	#}
+
+{% endblock %}
+
+{% block mininavs %}
+	<li ><a  href="{{ path('AC_List') }}">Articles</a></li>
+	<li><a href="{{ path('hotels') }}">Hotels</a></li>
+	<li><a href="{{ path('plats') }}">Plats</a></li>
+	<li><a href="{{ path('activities') }}">Activities</a></li>
+	<li><a href="{{ path('events') }}">events</a></li>
+	{% if app.user %}
+		<li class="active"><a href="{{ path('List_Rec') }}">Profile</a></li>
+	{% endif %}	{#  	<li ><a href="{{ path('gouvernorats') }}"></a></li>
+	#}
+
+
+
+{% endblock %}
+
+{% block content %}
+	<div style="margin: 0 0 50px 0;" class="page-top" id="templatemo_services"></div>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+	<link rel="stylesheet" href="{{asset('Amin/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/owl.carousel.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/magnific-popup.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/themify-icons.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/nice-select.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/flaticon.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/gijgo.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/animate.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/slicknav.css')}}">
+	<link
+	rel="stylesheet" href="{{asset('Amin/css/style.css')}}">
+
+
+	<!--================Blog Area =================-->
+
+	<section class="blog_area section-padding">
+		<div class="container">
+			<div class="justify-content-center">
+				<div class=" ">
+					<div style="text-align:  block;margin-left: auto;margin-right: auto;margin-bottom: 80px;">
+						<h1 class="">Les Reclamation</h1>
+						<p>Si vous rencontrez des Problemes n'hésitez pas de nous contacter !</p>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-lg-8 mb-5 mb-lg-0">
+					<div class="blog_left_sidebar">
+
+						<article class="blog_item" style=" background-color:#F0F0F2;">
+							<div class="blog_details">
+
+								<a class="d-inline-block" href="{{path('Ajout_Rec')}}">
+									<h2>
+
+										<i class="fa-sharp fa-solid fa-circle-plus fa-spin"></i>
+										Ajouter une Reclamation
+									</h2>
+								</a>
+
+
+							</div>
+						</article>
+						{% for r in Reclamations  %}
+							<article class="blog_item" style=" background-color:#F0F0F2;">
+								<div class="blog_details">
+									<a class="d-inline-block" href="single-blog.html">
+										<h2>{{r.sujet}}
+											{% if r.traitement == 0 %}
+												<h7 style="color: red;">
+													<i class="fa-sharp fa-solid fa-circle-xmark" style="color: #e21818;"></i>
+												</h7>
+
+											{% else %}
+												<h7 style="color:green;">
+													<i class="fa-sharp fa-solid fa-square-check" style="color: #83e633;"></i>
+												</h7>
+											{% endif %}
+										</h2>
+									</a>
+									<p>{{r.Reclamation}}</p>
+									<ul class="blog-info-link">
+
+										<li>
+
+											<i class="fa-solid fa-calendar"></i>
+											{{ r.dateRec|date('d') }}
+											{% set mois = {
+                                                    1: "janvier",
+                                                    2: "février",
+                                                    3: "mars",
+                                                    4: "avril",
+                                                    5: "mai",
+                                                    6: "juin",
+                                                    7: "juillet",
+                                                    8: "août",
+                                                    9: "septembre",
+                                                    10: "octobre",
+                                                    11: "novembre",
+                                                    12: "décembre"
+                                                } %}
+
+											{% for numMois in range(1, 12) %}
+												{% if numMois == r.dateRec|date('m') %}
+													{{ mois[numMois] }}
+												{% endif %}
+											{% endfor %}
+											{{ r.dateRec|date('y') }}
+
+
+										</li>
+
+										<li>
+											<a href="{{path('Modifier_Rec',{'id': r.idRec})}}">
+												<i class="fa-solid fa-file"></i>
+												Modifier</a>
+										</li>
+										<li>
+											<a href="{{path('Supprimer_Rec',{'id': r.idRec})}}">
+												<i class="fa-solid fa-trash"></i>
+												Supprimer</a>
+										</li>
+
+
+									</ul>
+
+
+								</div>
+							</article>
+						{% endfor %}
+
+
+						<nav class="blog-pagination justify-content-center d-flex">
+							<ul class="pagination">
+								<li class="page-item">
+									<a href="#" class="page-link" aria-label="Previous">
+										<i class="ti-angle-left"></i>
+									</a>
+								</li>
+								<li class="page-item">
+									<a href="#" class="page-link">1</a>
+								</li>
+								<li class="page-item active">
+									<a href="#" class="page-link">2</a>
+								</li>
+								<li class="page-item">
+									<a href="#" class="page-link" aria-label="Next">
+										<i class="ti-angle-right"></i>
+									</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="blog_right_sidebar">
+
+						<aside class="single_sidebar_widget post_category_widget" style=" background-color:#F0F0F2;">
+							<h4 class="widget_title">Options</h4>
+							<ul class="list cat-list">
+								<li>
+									<a href="{{path('app_participation_activity_index')}}" class="d-flex">
+										<i class="fa-solid fa-person-skating"> My Activities Participations</i>
+									</a>
+								</li>
+								<li>
+									<a href="{{path('app_participation_event_index')}}" class="d-flex">
+										<i class="fa-solid fa-calendar-days"> My Events Participations</i>
+									</a>
+								</li>
+								<li>
+									<a href="{{path('app_reservation_index')}}" class="d-flex">
+										<i class="fa-solid fa-hotel"> My Hotels Reservations</i>
+									</a>
+								</li>
+								<li>
+									<a href="{{path('app_user_edit_profile',{'id': app.user.iduser})}}" class="d-flex">
+										<i class="fa-solid fa-user-pen"> Edit Profile</i>
+									</a>
+								</li>
+
+
+								<li>
+									<a href="{{path('shop')}}" class="d-flex">
+										<i class="fa-solid fa-shop"> shop</i>
+									</a>
+								</li>
+
+								<li>
+									<a href="{{path('app_logout')}}" class="d-flex">
+										<i class="fa-solid fa-right-from-bracket">Logout</i>
+									</a>
+								</li>
+
+
+
+							</ul>
+						</aside>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<!--================Blog Area =================-->
+
+
+{% endblock %}

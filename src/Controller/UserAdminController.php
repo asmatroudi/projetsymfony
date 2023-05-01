@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
+use App\Entity\Utilisateur;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +28,7 @@ class UserAdminController extends AbstractController
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(Request $request, UserRepository $userRepository): Response
     {
-        $user = new User();
+        $user = new Utilisateur();
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -45,7 +45,7 @@ class UserAdminController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
-    public function show(User $user): Response
+    public function show(Utilisateur $user): Response
     {
         return $this->render('user/show.html.twig', [
             'user' => $user,
@@ -53,7 +53,7 @@ class UserAdminController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, Utilisateur $user, UserRepository $userRepository): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
@@ -71,9 +71,9 @@ class UserAdminController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    public function delete(Request $request, Utilisateur $user, UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getIduser(), $request->request->get('_token'))) {
             $userRepository->remove($user, true);
         }
 
@@ -81,7 +81,7 @@ class UserAdminController extends AbstractController
     }
     
     #[Route('/{id}/block', name: 'app_user_block', methods: ['GET', 'POST'])]
-    public function block(User $user, Request $request): Response
+    public function block(Utilisateur $user, Request $request): Response
     {
             $user->setIsBlocked(!$user->isBlocked());
 
@@ -103,7 +103,7 @@ class UserAdminController extends AbstractController
     }
     
     #[Route('/{id}/editprofile', name: 'admin_user_edit_profile', methods: ['GET', 'POST'])]
-    public function editProfile(Request $request, User $user, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function editProfile(Request $request, Utilisateur $user, UserRepository $userRepository, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         // $user = $this->getUser();
         $form = $this->createForm(ProfileType::class, $user);
@@ -132,9 +132,9 @@ class UserAdminController extends AbstractController
     }
     
     #[Route('/{id}/deleteprofile', name: 'admin_user_delete_profile', methods: ['POST'])]
-    public function deleteAccount(Request $request, User $user, UserRepository $userRepository, TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authChecker): Response
+    public function deleteAccount(Request $request, Utilisateur $user, UserRepository $userRepository, TokenStorageInterface $tokenStorage, AuthorizationCheckerInterface $authChecker): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$user->getIduser(), $request->request->get('_token'))) {
             $userRepository->remove($user, true);
         }
 

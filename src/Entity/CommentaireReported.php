@@ -43,7 +43,7 @@ class CommentaireReported
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_user", referencedColumnName="idUser")
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="iduser")
      * })
      */
     private $idUser;

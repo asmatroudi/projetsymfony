@@ -1,59 +1,41 @@
 {% extends "base-front.html.twig" %}
 
 {% block title %}
-	Mes Réservations Hotels - Tounesna
+	Article
 {% endblock %}
 
 {% block navs %}
-	<li>
-		<a href="{{ path('home') }}">Home</a>
-	</li>
-	<li>
-		<a href="{{ path('gouvernorats') }}">Gouvernorats</a>
-	</li>
-	<li>
-		<a href="{{ path('hotels') }}">Hotels</a>
-	</li>
-	<li>
-		<a href="{{ path('plats') }}">Plats</a>
-	</li>
-	<li>
-		<a href="{{ path('activities') }}">Activities</a>
-	</li>
-	<li>
-		<a href="{{ path('events') }}">events</a>
-	</li>
-	<li>
-		<a href="{{ path('shop') }}">shop</a>
-	</li>
-	{# <li><a href="{{ path('aboutus') }}">About Us</a></li> #}
-	{# <li><a href="{{ path('contact') }}">Contact</a></li> #}
+
+
+	<li ><a  href="{{ path('AC_List') }}">Articles</a></li>
+	<li><a href="{{ path('hotels') }}">Hotels</a></li>
+	<li><a href="{{ path('plats') }}">Plats</a></li>
+	<li><a href="{{ path('activities') }}">Activities</a></li>
+	<li><a href="{{ path('events') }}">events</a></li>
+	{% if app.user %}
+		<li ><a href="{{ path('List_Rec') }}">Profile</a></li>
+	{% else %}
+		<li ><a href="{{ path('app_login_front') }}">Register</a></li>
+	{% endif %}	{#  	<li ><a href="{{ path('gouvernorats') }}"></a></li>
+#}
+
 {% endblock %}
 
 {% block mininavs %}
-	<li>
-		<a href="{{ path('home') }}">Home</a>
-	</li>
-	<li>
-		<a href="{{ path('gouvernorats') }}">Gouvernorats</a>
-	</li>
-	<li>
-		<a href="{{ path('hotels') }}">Hotels</a>
-	</li>
-	<li>
-		<a href="{{ path('plats') }}">Plats</a>
-	</li>
-	<li>
-		<a href="{{ path('activities') }}">Activities</a>
-	</li>
-	<li>
-		<a href="{{ path('events') }}">events</a>
-	</li>
-	<li>
-		<a href="{{ path('shop') }}">shop</a>
-	</li>
-	{# <li><a href="{{ path('aboutus') }}">About Us</a></li> #}
-	{# <li><a href="{{ path('contact') }}">Contact</a></li> #}
+	<li ><a  href="{{ path('AC_List') }}">Articles</a></li>
+	<li><a href="{{ path('hotels') }}">Hotels</a></li>
+	<li><a href="{{ path('plats') }}">Plats</a></li>
+	<li><a href="{{ path('activities') }}">Activities</a></li>
+	<li><a href="{{ path('events') }}">events</a></li>
+	{% if app.user %}
+		<li ><a href="{{ path('List_Rec') }}">Profile</a></li>
+	{% else %}
+		<li ><a href="{{ path('app_login_front') }}">Register</a></li>
+	{% endif %}	{#  	<li ><a href="{{ path('gouvernorats') }}"></a></li>
+#}
+
+
+
 {% endblock %}
 
 {% block content %}
@@ -81,6 +63,7 @@
 					</thead>
 					<tbody>
 						{% for participation_activity in participation_activities %}
+							{% if participation_activity.user.iduser == app.user.iduser %}
 							<tr>
 								<td>{{ participation_activity.nbPlaces }}</td>
 								<td>{{ participation_activity.date ? participation_activity.date|date('d-m-Y') : '' }}</td>
@@ -98,6 +81,7 @@
 									<a href="{{ path('app_participation_activity_edit', {'id': participation_activity.id}) }}">edit</a>
 								</td>
 							</tr>
+							{% endif %}
 						{% else %}
 							<tr>
 								<td colspan="4">no records found</td>

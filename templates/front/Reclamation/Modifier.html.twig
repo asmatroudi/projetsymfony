@@ -1,0 +1,136 @@
+{% extends "base-front.html.twig" %}
+
+{% block title %}
+	Article
+{% endblock %}
+
+{% block navs %}
+
+
+	<li ><a  href="{{ path('AC_List') }}">Articles</a></li>
+	<li><a href="{{ path('hotels') }}">Hotels</a></li>
+	<li><a href="{{ path('plats') }}">Plats</a></li>
+	<li><a href="{{ path('activities') }}">Activities</a></li>
+	<li><a href="{{ path('events') }}">events</a></li>
+	{% if app.user %}
+		<li ><a href="{{ path('List_Rec') }}">Profile</a></li>
+	{% endif %}	{#  	<li ><a href="{{ path('gouvernorats') }}"></a></li>
+#}
+
+{% endblock %}
+
+{% block mininavs %}
+	<li ><a  href="{{ path('AC_List') }}">Articles</a></li>
+	<li><a href="{{ path('hotels') }}">Hotels</a></li>
+	<li><a href="{{ path('plats') }}">Plats</a></li>
+	<li><a href="{{ path('activities') }}">Activities</a></li>
+	<li><a href="{{ path('events') }}">events</a></li>
+	{% if app.user %}
+		<li ><a href="{{ path('List_Rec') }}">Profile</a></li>
+	{% endif %}	{#  	<li ><a href="{{ path('gouvernorats') }}"></a></li>
+#}
+
+
+
+{% endblock %}
+
+{% block content %}
+	<div style="margin: 0 0 50px 0;" class="page-top" id="templatemo_services"></div>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+	<link rel="stylesheet" href="{{asset('Amin/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/owl.carousel.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/magnific-popup.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/themify-icons.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/nice-select.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/flaticon.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/gijgo.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/animate.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/slicknav.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/style.css')}}">
+
+	<section class="contact-section">
+		<div class="container">
+
+
+			<div class="row">
+				<div class="col-12">
+					<h2 class="contact-title">Reclamation</h2>
+				</div>
+				<div class="col-lg-8">
+
+
+					{{ form_start(form,{'attr':{"class":"form-contact contact_form","method":"post" ,"id":"contactForm",novalidate:"novalidate" }}) }}
+
+
+					<div class="row">
+
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input class="form-control valid" name="name" id="name" type="text" placeholder="Entrer votre nom" value={{user.nom}}>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input class="form-control valid" name="email" id="email" type="email" placeholder="Email" value={{user.email}}>
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<span id="Descerror" style="color:red">{{ form_errors(form.sujet) }}</span>
+
+								{{ form_widget(form.sujet,{'attr':{"class":"form-control valid","name":"subject" ,"id":"subject" ,"type":"text", "placeholder":"Entrer votre sujet",'value':reclamation.sujet}})}}
+
+							</div>
+						</div>
+						<div class="col-12">
+							<div class="form-group">
+								<span id="Descerror" style="color:red">{{ form_errors(form.reclamation) }}</span>
+
+								{{ form_widget(form.reclamation,{'attr':{"class":"form-control valid","name":"Reclamation" ,"id":"Reclamation" ,"type":"text", "placeholder":"Entrer votre reclamation","cols":"30", "rows":"9",'value':reclamation.reclamation}})}}
+
+							</div>
+						</div>
+					</div>
+					<div class="form-group mt-3">
+						<button type="submit" class="button button-contactForm boxed-btn">Envoyer</button>
+					</div>
+					{{ form_end(form) }}
+				</div>
+				<div class="col-lg-3 offset-lg-1">
+					<div class="media contact-info">
+						<span class="contact-info__icon">
+							<i class="ti-home"></i>
+						</span>
+						<div class="media-body">
+							<h3>Tunisie,Tunis.</h3>
+							<p>Ariana La petite, Esprit</p>
+						</div>
+					</div>
+					<div class="media contact-info">
+						<span class="contact-info__icon">
+							<i class="ti-tablet"></i>
+						</span>
+						<div class="media-body">
+							<h3>+216 29 999 999</h3>
+							<p>Ici pour vous écouter</p>
+						</div>
+					</div>
+					<div class="media contact-info">
+						<span class="contact-info__icon">
+							<i class="ti-email"></i>
+						</span>
+						<div class="media-body">
+							<h3>Tounesna@gmail.com</h3>
+							<p>Envoyer votre reclamation à tout moment
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

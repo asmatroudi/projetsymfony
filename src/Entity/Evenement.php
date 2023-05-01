@@ -74,7 +74,7 @@ class Evenement
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="auteur", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="auteur", referencedColumnName="iduser")
      * })
      * @Assert\NotBlank()
      */

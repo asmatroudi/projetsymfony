@@ -35,7 +35,7 @@ class SecurityHomeController extends AbstractController
     
                 if ($user->getRoles()["role"] == "user") {
                     // dd($this->getUser()->getRoles()["role"]);
-                    return $this->redirectToRoute('home');
+                    return $this->redirectToRoute('AC_List');
                 }
             }
         }

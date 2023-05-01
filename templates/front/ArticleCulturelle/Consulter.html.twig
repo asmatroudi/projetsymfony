@@ -1,0 +1,257 @@
+{% extends "base-front.html.twig" %}
+
+{% block title %}
+	Article
+{% endblock %}
+
+{% block navs %}
+
+
+	<li ><a  href="{{ path('AC_List') }}">Articles</a></li>
+	<li><a href="{{ path('hotels') }}">Hotels</a></li>
+	<li><a href="{{ path('plats') }}">Plats</a></li>
+	<li><a href="{{ path('activities') }}">Activities</a></li>
+	<li><a href="{{ path('events') }}">events</a></li>
+	{% if app.user %}
+		<li ><a href="{{ path('List_Rec') }}">Profile</a></li>
+	{% else %}
+		<li ><a href="{{ path('app_login_front') }}">Register</a></li>
+	{% endif %}	{#  	<li ><a href="{{ path('gouvernorats') }}"></a></li>
+#}
+
+{% endblock %}
+
+{% block mininavs %}
+	<li ><a  href="{{ path('AC_List') }}">Articles</a></li>
+	<li><a href="{{ path('hotels') }}">Hotels</a></li>
+	<li><a href="{{ path('plats') }}">Plats</a></li>
+	<li><a href="{{ path('activities') }}">Activities</a></li>
+	<li><a href="{{ path('events') }}">events</a></li>
+	{% if app.user %}
+		<li ><a href="{{ path('List_Rec') }}">Profile</a></li>
+	{% else %}
+		<li ><a href="{{ path('app_login_front') }}">Register</a></li>
+	{% endif %}	{#  	<li ><a href="{{ path('gouvernorats') }}"></a></li>
+#}
+
+
+
+{% endblock %}
+{% block content %}
+	<div class="page-top" id="templatemo_contact"></div>
+
+<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+	<link rel="stylesheet" href="{{asset('Amin/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/owl.carousel.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/magnific-popup.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/themify-icons.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/nice-select.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/flaticon.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/gijgo.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/animate.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/slicknav.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/style.css')}}">
+
+
+	<section class="blog_area single-post-area section-padding">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 posts-list">
+					<div class="single-post">
+						<div class="feature-img">
+							<img class="img-fluid" src="{{asset('images/ArticleCulturelle/' ~ article.image )}}" alt="">
+						</div>
+						<div class="blog_details">
+							<h2>{{article.titre}}</h2>
+							<ul class="blog-info-link mt-3 mb-4">
+								<li>
+									<a href="#">
+										<i class="fa fa-user"></i>
+										Tunisie ,{{article.idGouv.nomGouver}}
+									</a>
+								</li>
+								<li>
+									<a href="{{ path('PDF', {'id': article.id}) }}">
+										<i class="fa-solid fa-file-arrow-down"></i>
+										Exporter en PDF</a>
+								</li>
+							</ul>
+							<p class="excert">{{article.description}}
+
+							</p>
+
+						</div>
+					</div>
+					<div class="navigation-top">
+						<div class="d-sm-flex justify-content-between text-center">
+							<p class="like-info">
+								<span class="align-middle">
+									<i class="fa-sharp fa-solid fa-calendar-days"></i>
+								</span>
+								{{ article.date|date('d/m/Y') }}
+							</p>
+
+							<p class="like-info">
+								<span class="align-middle">
+									<i class="fa-solid fa-temperature-three-quarters"></i>
+								</span>
+								Température Moyenne :
+								{{ article.tempMoyenne}}
+							</p>
+
+							<div
+								class="col-sm-4 text-center my-2 my-sm-0"><!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
+							</div>
+							<ul class="social-icons">
+								<li>
+									<a href="#">
+										<i class="fa fa-facebook-f"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="fa fa-twitter"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="fa fa-dribbble"></i>
+									</a>
+								</li>
+								<li>
+									<a href="#">
+										<i class="fa fa-behance"></i>
+									</a>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+					{#
+																																																																	<div class="comments-area">
+																																																																		<h4>05 Comments</h4>
+																																																																		<div class="comment-list">
+																																																																			<div class="single-comment justify-content-between d-flex">
+																																																																				<div class="user justify-content-between d-flex">
+																																																																					<div class="thumb">
+																																																																						<img src="{{asset('Amin/img/comment/comment_1.png')}}" alt="">
+																																																																					</div>
+																																																																					<div class="desc">
+																																																																						<p class="comment">
+																																																																							Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                                 Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
+																																																																						</p>
+																																																																						<div class="d-flex justify-content-between">
+																																																																							<div class="d-flex align-items-center">
+																																																																								<h5>
+																																																																									<a href="#">Emilly Blunt</a>
+																																																																								</h5>
+																																																																								<p class="date">December 4, 2017 at 3:12 pm
+																																																																								</p>
+																																																																							</div>
+																																																																							<div class="reply-btn">
+																																																																								<a href="#" class="btn-reply text-uppercase">reply</a>
+																																																																							</div>
+																																																																						</div>
+																																																																					</div>
+																																																																				</div>
+																																																																			</div>
+																																																																		</div>
+																																																																		<div class="comment-list">
+																																																																			<div class="single-comment justify-content-between d-flex">
+																																																																				<div class="user justify-content-between d-flex">
+																																																																					<div class="thumb">
+																																																																						<img src="{{asset('Amin/img/comment/comment_2.png')}}" alt="">
+																																																																					</div>
+																																																																					<div class="desc">
+																																																																						<p class="comment">
+																																																																							Multiply sea night grass fourth day sea lesser rule open subdue female fill which them
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																														                                 Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
+																																																																						</p>
+																																																																						<div class="d-flex justify-content-between">
+																																																																							<div class="d-flex align-items-center">
+																																																																								<h5>
+																																																																									<a href="#">Emilly Blunt</a>
+																																																																								</h5>
+																																																																								<p class="date">December 4, 2017 at 3:12 pm
+																																																																								</p>
+																																																																							</div>
+																																																																							<div class="reply-btn">
+																																																																								<a href="#" class="btn-reply text-uppercase">reply</a>
+																																																																							</div>
+																																																																						</div>
+																																																																					</div>
+																																																																				</div>
+																																																																			</div>
+																																																																		</div>
+																																																												
+																																																																	</div>
+																																																																	#}
+
+				</div>
+				<div class="col-lg-4">
+					<div class="blog_right_sidebar">
+						<aside class="single_sidebar_widget search_widget">
+							<form action="#">
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<input type="text" class="form-control" placeholder='Search Keyword' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'">
+										<div class="input-group-append">
+											<button class="btn" type="button">
+												<i class="ti-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+								<button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">Search</button>
+							</form>
+						</aside>
+						<aside class="single_sidebar_widget post_category_widget">
+							<h4 class="widget_title">Category</h4>
+							<ul class="list cat-list">
+								<li>
+									<a href="{{path('AC_List')}}" class="d-flex">
+										<p>Article Culturelle</p>
+									</a>
+								</li>
+								<li>
+									<a href="{{path('List_Rec')}}" class="d-flex">
+										<p>Reclamation</p>
+									</a>
+								</li>
+
+							</ul>
+						</aside>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================ Blog Area end =================-->
+
+
+	<!-- JS here -->
+	<script src="js/vendor/modernizr-3.5.0.min.js"></script>
+	<script src="js/vendor/jquery-1.12.4.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/owl.carousel.min.js"></script>
+	<script src="js/isotope.pkgd.min.js"></script>
+	<script src="js/ajax-form.js"></script>
+	<script src="js/waypoints.min.js"></script>
+	<script src="js/jquery.counterup.min.js"></script>
+	<script src="js/imagesloaded.pkgd.min.js"></script>
+	<script src="js/scrollIt.js"></script>
+	<script src="js/jquery.scrollUp.min.js"></script>
+	<script src="js/wow.min.js"></script>
+	<script src="js/nice-select.min.js"></script>
+	<script src="js/jquery.slicknav.min.js"></script>
+	<script src="js/jquery.magnific-popup.min.js"></script>
+	<script src="js/plugins.js"></script>
+	<script src="js/gijgo.min.js"></script>
+
+{% endblock %}

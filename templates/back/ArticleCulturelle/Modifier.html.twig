@@ -1,0 +1,80 @@
+{% extends "base-back.html.twig" %}
+
+{% block pagewrapper %}
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,700,600,300' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/b512623766.js" crossorigin="anonymous"></script>
+	<link href="{{asset('assets/libs/flot/css/float-chart.css')}}" rel="stylesheet">
+	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
+	<link rel="stylesheet" href="{{asset('css/animate.css')}}">
+	<link rel="stylesheet" href="{{asset('css/templatemo_misc.css')}}">
+	<link rel="stylesheet" href="{{asset('css/templatemo_style.css')}}">
+
+	<script src="{{asset('js/vendor/modernizr-2.6.1-respond-1.1.0.min.js')}}"></script>
+	<link href="{{asset('dist/css/style.min.css')}}" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/b512623766.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+	<link rel="stylesheet" href="{{asset('Amin/css/bootstrap.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/owl.carousel.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/magnific-popup.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/themify-icons.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/nice-select.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/flaticon.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/gijgo.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/animate.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/slicknav.css')}}">
+	<link rel="stylesheet" href="{{asset('Amin/css/style.css')}}">
+
+
+	<div class="contact-page">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7 col-sm-6 map-wrapper">
+					<h3 class="widget-title">Photo</h3>
+					<div class="map-holder">
+						<img width="600px" height="500px" id="output" src="{{asset('images/ArticleCulturelle/' ~ article.image )}}"></img>
+				</div>
+
+			</div>
+			<div class="col-md-5 col-sm-6">
+				<h3 class="widget-title">Ajouter un Article Culturelle</h3>
+				<div class="contact-form">
+					{{ form_start(form) }}
+					<span id="Descerror"></span>
+					{{ form_row(form.titre) }}
+					{{ form_row(form.tempMoyenne) }}
+					{{ form_row(form.description) }}
+					{{ form_label(form.idGouv) }}
+				</br>
+				{{ form_widget(form.idGouv) }}
+				{{ form_errors(form.idGouv) }}
+
+			</br>
+
+			{{ form_row(form.image)}}
+
+			<input type="submit" class="mainBtn" id="submit" value="Ajouter">
+
+			<input type="text" name="Image2" id="Image2" value={{article.image}} style="display:none;">
+
+			{{ form_end(form) }}
+
+
+			<script>
+				var loadFile = function (event) {
+var image = document.getElementById('output');
+var imageInput = document.getElementById('Image');
+image.src = URL.createObjectURL(event.target.files[0]);
+
+};
+			</script>
+
+
+		</div>
+	</div>
+	<!-- /.contact-form -->
+	<!-- /.contact-form -->
+</div></div></div></div>{% endblock %}

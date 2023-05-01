@@ -8,7 +8,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:
             entity:
-                class: App\Entity\User
+                class: App\Entity\Utilisateur
                 property: email
     firewalls:
         dev:
@@ -23,7 +23,7 @@ security:
             entry_point: App\Security\LoginFormHomeAuthenticator
             logout:
                 path: app_logout
-                target: /
+                target: AC_List
                 # where to redirect after logout
                 # target: app_any_route
 
@@ -36,8 +36,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/admin, roles: ROLE_ADMIN}
+         #- { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     security:

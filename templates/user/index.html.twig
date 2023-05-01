@@ -47,9 +47,9 @@
 						{% endif %}
 					</td>
 					<td>
-						<a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+						<a href="{{ path('app_user_show', {'id': user.iduser}) }}">show</a>
 
-						<a href="{{ path('app_user_block', {'id': user.id}) }}">
+						<a href="{{ path('app_user_block', {'id': user.iduser}) }}">
 							{% if user.isBlocked %}
 								unblock
 							{% else %}

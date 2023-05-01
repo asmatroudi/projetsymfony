@@ -74,7 +74,7 @@ class EvenementAdminController extends AbstractController
             ->getRepository(Evenement::class)
             ->findAll();
         $query = $request->query->get('q');
-        $evenements = $evenementRepository->findByNom($query);
+       // $evenements = $evenementRepository->findByNom($query);
 
         return $this->render('evenementAdmin/index.html.twig', [
             'evenements' => $evenements,
