@@ -13,6 +13,15 @@
 		<title>
 			{% block title %}{% endblock %}
 		</title>
+		<script src="https://kit.fontawesome.com/b512623766.js" crossorigin="anonymous"></script>
+		<link href="{{asset('assets/libs/flot/css/float-chart.css')}}" rel="stylesheet">
+		<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
+		<link rel="stylesheet" href="{{asset('css/animate.css')}}">
+		<link rel="stylesheet" href="{{asset('css/templatemo_misc.css')}}">
+		<link rel="stylesheet" href="{{asset('css/templatemo_style.css')}}">
+
+		<script src="{{asset('js/vendor/modernizr-2.6.1-respond-1.1.0.min.js')}}"></script>
 		<link
 		rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
 		<!-- Favicon icon -->
@@ -336,6 +345,43 @@
 									<span class="hide-menu">Plats</span>
 								</a>
 							</li>
+
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('AC_Back_List') }}" aria-expanded="false">
+									<i class="mdi mdi-view-dashboard"></i>
+									<span class="hide-menu">Article Culturelle</span>
+								</a>
+							</li>
+
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('List_Back_Rec') }}" aria-expanded="false">
+									<i class="mdi mdi-view-dashboard"></i>
+									<span class="hide-menu">Reclamation</span>
+								</a>
+							</li>
+
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_user_index') }}" aria-expanded="false">
+									<i class="mdi mdi-view-dashboard"></i>
+									<span class="hide-menu">Users</span>
+								</a>
+							</li>
+
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('admin_registration') }}" aria-expanded="false">
+									<i class="mdi mdi-view-dashboard"></i>
+									<span class="hide-menu">Add Admin</span>
+								</a>
+							</li>
+							<li class="sidebar-item">
+								<a class="sidebar-link waves-effect waves-dark sidebar-link" href="{{ path('app_logout') }}" aria-expanded="false">
+									<i class="mdi mdi-view-dashboard"></i>
+									<span class="hide-menu">Logout</span>
+								</a>
+							</li>
+
+
+
 						</ul>
 					</nav>
 					<!-- End Sidebar navigation -->
@@ -380,6 +426,27 @@
 			<script src="../../../assets/libs/flot/jquery.flot.crosshair.js"></script>
 			<script src="../../../assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
 			<script src="../../../dist/js/pages/chart/chart-page-init.js"></script>
+		<!-- ============================================================== --><script src="{{asset('assets/libs/jquery/dist/jquery.min.js')}}"> </script>
+		<!-- Bootstrap tether Core JavaScript -->
+		<script src="{{asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+		<script src="{{asset('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
+		<script src="{{asset('assets/extra-libs/sparkline/sparkline.js')}}"></script>
+		<!--Wave Effects -->
+		<script src="{{asset('dist/js/waves.js')}}"></script>
+		<!--Menu sidebar -->
+		<script src="{{asset('dist/js/sidebarmenu.js')}}"></script>
+		<!--Custom JavaScript -->
+		<script src="{{asset('dist/js/custom.min.js')}}"></script>
+		<!--This page JavaScript -->
+		<!-- <script src="../../dist/js/pages/dashboards/dashboard1.js"></script> -->
+		<!-- Charts js Files --><script src="../../../assets/libs/flot/excanvas.js"> </script>
+		<script src="{{asset('assets/libs/flot/jquery.flot.js')}}"></script>
+		<script src="{{asset('assets/libs/flot/jquery.flot.pie.js')}}"></script>
+		<script src="{{asset('assets/libs/flot/jquery.flot.time.js')}}"></script>
+		<script src="{{asset('assets/libs/flot/jquery.flot.stack.js')}}"></script>
+		<script src="{{asset('assets/libs/flot/jquery.flot.crosshair.js')}}"></script>
+		<script src="{{asset('assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js')}}"></script>
+		<script src="{{asset('dist/js/pages/chart/chart-page-init.js')}}"></script>
 
 		</body>
 
