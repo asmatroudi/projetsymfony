@@ -35,7 +35,7 @@ class ParticipationActivity
 
     /**
      * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="iduser")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 

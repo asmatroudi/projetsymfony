@@ -1,43 +1,60 @@
 {% extends "base-front.html.twig" %}
 
 {% block title %}
-	Article
+	Mes Participations Events - Tounesna
 {% endblock %}
 
 {% block navs %}
-
-
-	<li ><a  href="{{ path('AC_List') }}">Articles</a></li>
-	<li><a href="{{ path('hotels') }}">Hotels</a></li>
-	<li><a href="{{ path('plats') }}">Plats</a></li>
-	<li><a href="{{ path('activities') }}">Activities</a></li>
-	<li><a href="{{ path('events') }}">events</a></li>
-	{% if app.user %}
-		<li ><a href="{{ path('List_Rec') }}">Profile</a></li>
-	{% else %}
-		<li ><a href="{{ path('app_login_front') }}">Register</a></li>
-	{% endif %}	{#  	<li ><a href="{{ path('gouvernorats') }}"></a></li>
-#}
-
+	<li>
+		<a href="{{ path('home') }}">Home</a>
+	</li>
+	<li>
+		<a href="{{ path('gouvernorats') }}">Gouvernorats</a>
+	</li>
+	<li>
+		<a href="{{ path('hotels') }}">Hotels</a>
+	</li>
+	<li>
+		<a href="{{ path('plats') }}">Plats</a>
+	</li>
+	<li>
+		<a href="{{ path('activities') }}">Activities</a>
+	</li>
+	<li>
+		<a href="{{ path('events') }}">events</a>
+	</li>
+	<li>
+		<a href="{{ path('shop') }}">shop</a>
+	</li>
+	{# <li><a href="{{ path('aboutus') }}">About Us</a></li> #}
+	{# <li><a href="{{ path('contact') }}">Contact</a></li> #}
 {% endblock %}
 
 {% block mininavs %}
-	<li ><a  href="{{ path('AC_List') }}">Articles</a></li>
-	<li><a href="{{ path('hotels') }}">Hotels</a></li>
-	<li><a href="{{ path('plats') }}">Plats</a></li>
-	<li><a href="{{ path('activities') }}">Activities</a></li>
-	<li><a href="{{ path('events') }}">events</a></li>
-	{% if app.user %}
-		<li ><a href="{{ path('List_Rec') }}">Profile</a></li>
-	{% else %}
-		<li ><a href="{{ path('app_login_front') }}">Register</a></li>
-	{% endif %}	{#  	<li ><a href="{{ path('gouvernorats') }}"></a></li>
-#}
-
-
-
+	<li>
+		<a href="{{ path('home') }}">Home</a>
+	</li>
+	<li>
+		<a href="{{ path('gouvernorats') }}">Gouvernorats</a>
+	</li>
+	<li>
+		<a href="{{ path('hotels') }}">Hotels</a>
+	</li>
+	<li>
+		<a href="{{ path('plats') }}">Plats</a>
+	</li>
+	<li>
+		<a href="{{ path('activities') }}">Activities</a>
+	</li>
+	<li>
+		<a href="{{ path('events') }}">events</a>
+	</li>
+	<li>
+		<a href="{{ path('shop') }}">shop</a>
+	</li>
+	{# <li><a href="{{ path('aboutus') }}">About Us</a></li> #}
+	{# <li><a href="{{ path('contact') }}">Contact</a></li> #}
 {% endblock %}
-
 
 {% block content %}
 
@@ -65,7 +82,6 @@
 					</thead>
 					<tbody>
 						{% for participation_event in participation_events %}
-							{% if participation_event.user.iduser == app.user.iduser %}
 							<tr>
 								<td>{{ participation_event.nbPlaces }}</td>
 								<td>{{ participation_event.date ? participation_event.date|date('d-m-Y') : '' }}</td>
@@ -76,7 +92,7 @@
 									<img style="height: 100px; object-fit: cover;" class="img-fluid" src="{{ asset('/uploads/' ~ participation_event.event.image) }}" alt="">
 								</td>
 								<td>{{  participation_event.event.datev ? participation_event.event.datev|date('d-m-Y') : '' }}</td>
-								<td>{{  participation_event.user.nom}} {{  participation_event.user.prenom}}</td>
+								<td>{{  participation_event.event.auteur }}</td>
 								<td>{{  participation_event.event.gouvernorat.nomGouver }}</td>
 								<td>{{  participation_event.event.price * participation_event.nbPlaces }}</td>
 								<td>
@@ -84,7 +100,10 @@
 									<a href="{{ path('app_participation_event_edit', {'id': participation_event.id}) }}">edit</a>
 								</td>
 							</tr>
-{% endif %}
+						{% else %}
+							<tr>
+								<td colspan="4">no records found</td>
+							</tr>
 						{% endfor %}
 					</tbody>
 				</table>

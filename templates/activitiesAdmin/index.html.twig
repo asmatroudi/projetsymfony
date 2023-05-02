@@ -76,7 +76,9 @@ selectable: true,
 nowIndicator: true,
 dayMaxEvents: false,
 navLinks: true,
-eventClick: '',
+eventClick: function (info) {
+window.location.href = info.event.url;
+},
 select: function (info) {
 window.location.href = "{{ path('admin_activities_new') }}";
 }

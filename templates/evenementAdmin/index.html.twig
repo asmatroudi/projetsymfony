@@ -44,7 +44,7 @@
 						<img style="height: 100px; object-fit: cover;" class="img-fluid" src="{{ asset('/uploads/' ~ evenement.image) }}" alt="">
 					</td>
 					<td>{{ evenement.gouvernorat.nomGouver }}</td>
-					<td>{{ evenement.auteur.nom }} {{ evenement.auteur.prenom }}</td>
+					<td>{{ evenement.auteur }}</td>
 					<td>{{ evenement.price }}</td>
 					<td>
 						<a href="{{ path('admin_evenement_show', {'idev': evenement.idev}) }}">show</a>

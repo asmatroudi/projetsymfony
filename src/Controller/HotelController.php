@@ -19,20 +19,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTime;
-use App\Service\TwilioSmsService;
-use Symfony\Component\Security\Core\Security;
-
 
 #[Route('/hotel')]
 class HotelController extends AbstractController
 {
-    private $twilioSmsService;
-
-    public function __construct(TwilioSmsService $twilioSmsService)
-    {
-        $this->twilioSmsService = $twilioSmsService;
-    }
-
     #[Route('/', name: 'hotels', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
@@ -67,11 +57,10 @@ class HotelController extends AbstractController
 
     #[Route('/{id}/comment/add', name: 'app_hotel_comment', methods: ['GET', 'POST'])]
     
-    public function addComment(Request $request, Hotel $hotel, EntityManagerInterface $entityManager,Security $security)
+    public function addComment(Request $request, Hotel $hotel, EntityManagerInterface $entityManager)
 {
-    $user = $security->getUser();
     $now = new DateTime();
-    //$user = $entityManager->find(Utilisateur::class, 21);
+    $user = $entityManager->find(Utilisateur::class, 21);
     $comment = new Commentaire();
     $comment->setIdHotel($hotel->getIdh());
     $comment->setDateajc($now);
@@ -124,17 +113,16 @@ return $this->render('hotel/comment.html.twig', [
 
 #[Route('/{id}/rate/add', name: 'app_hotel_rate', methods: ['GET', 'POST'])]
     
-public function addRate(Request $request, Hotel $hotel, EntityManagerInterface $entityManager,Security $security)
+public function addRate(Request $request, Hotel $hotel, EntityManagerInterface $entityManager)
 {
-    $user = $security->getUser();
-    //$user = $entityManager->find(Utilisateur::class, 21);
-    $rate = new RateHotel();
-    $rate->setIdHotel($hotel);
-    $form = $this->createForm(RateHotelType::class, $rate);
-    $form->handleRequest($request);
+$user = $entityManager->find(Utilisateur::class, 21);
+$rate = new RateHotel();
+$rate->setIdHotel($hotel);
+$rate->setIdUser($user->getIduser());
+$form = $this->createForm(RateHotelType::class, $rate);
+$form->handleRequest($request);
 
 if ($form->isSubmitted() && $form->isValid()) {
-    $rate->setIdUser($user->getIduser());
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->persist($rate);
     $entityManager->flush();
@@ -151,11 +139,10 @@ return $this->render('hotel/rate.html.twig', [
 
 
 #[Route('/{id}/reserver', name: 'app_reservation_hotel', methods: ['GET', 'POST'])]
-public function reserverHotel(Request $request, ReservationRepository $reservationRepository, UtilisateurRepository $userRepository, Hotel $hotel,    Security $security): Response
+public function reserverHotel(Request $request, ReservationRepository $reservationRepository, UtilisateurRepository $userRepository, Hotel $hotel): Response
 {
-    $user = $security->getUser();
     $reservation = new Reservation();
-    //$user = $userRepository->find(21);
+    $user = $userRepository->find(21);
     $form = $this->createForm(ReservationType::class, $reservation);
     $form->handleRequest($request);
 
@@ -166,30 +153,6 @@ public function reserverHotel(Request $request, ReservationRepository $reservati
         $reservation->setHotel($hotel);
         
         $reservationRepository->save($reservation, true);
-
-        $message =
-            'Hello ' .
-            $reservation->getUser()->getNom() .
-            ' ' .
-            $reservation->getUser()->getPrenom() .
-            ' | ' .
-            $reservation->getUser()->getEmail() .
-            ', your reservation for ' .
-            $reservation->getHotel()->getNomhotel() .
-            ' Hotel, in ' .
-            $reservation->getHotel()->getGouvernorat()->getNomGouver() .
-            ' for a number of places of ' .
-            $reservation->getNbPlaces() .
-            ' and a price of ' .
-            $reservation->getNbPlaces() * $reservation->getHotel()->getPrice() .
-            'TND, has been successfully confirmed with the date ' .
-            $reservation->getDate()->format('d-m-Y') .
-            '. You can visit the hotel website for more info: ' .
-            $reservation->getHotel()->getSite() .
-            '. Thank you for your trust.';
-        $phoneNumber = '+21653353908'; // user's phone number
-
-        $this->twilioSmsService->sendSms($message, $phoneNumber);
 
         $this->addFlash('notice','Hotel réservé!');
 

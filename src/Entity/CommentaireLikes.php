@@ -36,7 +36,7 @@ class CommentaireLikes
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user_id", referencedColumnName="iduser")
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="idUser")
      * })
      */
     private $user;
