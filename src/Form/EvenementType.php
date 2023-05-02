@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Evenement;
-use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -63,9 +62,7 @@ class EvenementType extends AbstractType
             ->add('titre')
             ->add('image', FileType::class, ['mapped' => false])
             ->add('price')
-            ->add('auteur', EntityType::class,[
-            'class' => Utilisateur::class,
-            'choice_label' => 'email'])
+            ->add('auteur')
             ->add('gouvernorat', EntityType::class, [
                 'class' => Gouvernorat::class,
                 'choice_label' => 'nomGouver',

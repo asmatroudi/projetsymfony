@@ -12,8 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Security;
-
 use DateTime;
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -22,10 +20,10 @@ use Dompdf\Options;
 class CommandeController extends AbstractController
 {
     #[Route('/', name: 'app_commande_index', methods: ['GET'])]
-    public function index(Security $security,CommandeRepository $commandeRepository, UtilisateurRepository $userRepo): Response
+    public function index(CommandeRepository $commandeRepository, UtilisateurRepository $userRepo): Response
     {
         $commandes = $commandeRepository->findAll();
-        $user = $security->getUser();
+        $user = $userRepo->find(21);
 
         foreach ($commandes as $key => $commande) {
             if ($commande->getUser() != $user) {
@@ -101,7 +99,7 @@ class CommandeController extends AbstractController
      * @Route ("/panier/addcommande", name="add_commande", methods={"GET","POST"})
      */
 
-     function addCommande(Security $security,SessionInterface $session, ProduitRepository $repo, CommandeRepository $commandeRepository, UtilisateurRepository $userRepo)
+     function addCommande(SessionInterface $session, ProduitRepository $repo, CommandeRepository $commandeRepository, UtilisateurRepository $userRepo)
      {
          $panier = $session->get("panier", []);
          $dataPanier = [];
@@ -116,9 +114,8 @@ class CommandeController extends AbstractController
                      "qty" => $qty
                  ];
                  $total += $produit->getPrice() * $qty;
-
-
-                 $user = $security->getUser();
+ 
+                 $user = $userRepo->find(21);
                  $commande = new Commande();
                  $commande->setProduit($produit);
                  $commande->setUser($user);
@@ -145,10 +142,8 @@ class CommandeController extends AbstractController
       * @Route ("/panier/confirmcommande", name="confirm_commande", methods={"GET","POST"})
       */
  
-     function confirmCommande(Security $security,SessionInterface $session, ProduitRepository $repo, CommandeRepository $commandeRepository, UtilisateurRepository $userRepo)
+     function confirmCommande(SessionInterface $session, ProduitRepository $repo, CommandeRepository $commandeRepository, UtilisateurRepository $userRepo)
      {
-         $user = $security->getUser();
-
          $panier = $session->get("panier", []);
          $dataPanier = [];
          $total = 0;
@@ -165,6 +160,7 @@ class CommandeController extends AbstractController
                  $total += $produit->getPrice() * $qty;
                 //  $user1 = $this->get('security.token_storage')->getToken()->getUser();
  
+                 $user = $userRepo->find(21);
                  $commande = new Commande();
                  $commande->setNum(random_int(1000, 9999));
                  $commande->setProduit($produit);

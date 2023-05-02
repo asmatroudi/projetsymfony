@@ -27,6 +27,7 @@ class Reservation
      */
     private $date;
 
+
     /**
      * @ORM\ManyToOne(targetEntity="Hotel")
      * @ORM\JoinColumn(name="hotel_id", referencedColumnName="idh")
@@ -35,7 +36,7 @@ class Reservation
 
     /**
      * @ORM\ManyToOne(targetEntity="Utilisateur")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="iduser")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
@@ -67,6 +68,8 @@ class Reservation
 
         return $this;
     }
+
+  
 
     public function getHotel(): ?Hotel
     {

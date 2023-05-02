@@ -38,8 +38,15 @@ class HotelRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function findByNom($query){
+        return $this->createQueryBuilder('e')
+            ->where('e.nomhotel LIKE :query')
+            ->setParameter('query', '%'.$query.'%')
+            ->getQuery()
+            ->getResult();
+    }
 
-    public function findByNom($query)
+    /*public function findByNom($query)
     {
         $qb = $this->createQueryBuilder('e');
         $qb->where($qb->expr()->orX(
@@ -50,6 +57,7 @@ class HotelRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+    */
 
 //    /**
 //     * @return Hotel[] Returns an array of Hotel objects

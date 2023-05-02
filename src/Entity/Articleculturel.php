@@ -5,8 +5,6 @@ namespace App\Entity;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-
-
 /**
  * Articleculturel
  *
@@ -33,9 +31,8 @@ class Articleculturel
 
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(name="description", type="string", length=5000, nullable=false)
-
      */
     private $description;
 
@@ -50,13 +47,12 @@ class Articleculturel
      * @var float
      *
      * @ORM\Column(name="temp_moyenne", type="float", precision=10, scale=0, nullable=false)
-
      */
     private $tempMoyenne;
 
     /**
-
-     *@var string
+     * @var string
+     *
      * @ORM\Column(name="image", type="string", length=500, nullable=false)
      */
     private $image;
@@ -147,4 +143,6 @@ class Articleculturel
 
         return $this;
     }
+
+
 }

@@ -9,7 +9,7 @@ class ContainsBadWordsValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        $badWords = ['fuck', 'bad', 'shit']; // Define an array of bad words to check against
+        $badWords = ['fuck', 'bad', 'shit','samar']; // Define an array of bad words to check against
 
         foreach ($badWords as $word) {
             if (stripos($value, $word) !== false) {

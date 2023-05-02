@@ -3,8 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Commande;
-use App\Entity\Utilisateur;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,9 +16,8 @@ class CommandeType extends AbstractType
             ->add('productqty')
             ->add('date')
             ->add('produit')
-            ->add('user', EntityType::class,[
-                'class' => Utilisateur::class,
-                'choice_label' => 'email'])        ;
+            ->add('user')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

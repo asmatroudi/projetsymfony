@@ -32,11 +32,11 @@ class RateHotel
     /**
      * @var float|null
      *
-     * @ORM\Column(name="rate", type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(name="rate", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
      * @Assert\NotBlank()
      * @Assert\Range(min=1, max=5)
      */
-    private $rate;
+    private $rate = NULL;
 
     /**
      * @var \Hotel

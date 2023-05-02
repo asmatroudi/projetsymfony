@@ -75,7 +75,7 @@ class Hotel
      *
      * @ORM\Column(name="price", type="integer", nullable=false)
      * @Assert\NotBlank()
-     * @Assert\Range(min=50, max=150)
+     * @Assert\Range(min=50, max=1500)
      */
     private $price;
     

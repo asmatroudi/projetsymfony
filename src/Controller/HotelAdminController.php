@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/admin/hotel')]
 class HotelAdminController extends AbstractController
 {
-    #[Route('/search', name: 'hotel_search')]
+    #[Route('/search', name: 'hotel_admin_search')]
     public function search(Request $request, HotelRepository $hotelRepository): Response
     {
         $query = $request->query->get('q');

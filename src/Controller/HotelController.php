@@ -12,6 +12,7 @@ use App\Form\HotelType;
 use App\Form\RateHotelType;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
+use App\Repository\HotelRepository;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,8 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTime;
 use App\Service\TwilioSmsService;
-use Symfony\Component\Security\Core\Security;
-
 
 #[Route('/hotel')]
 class HotelController extends AbstractController
@@ -32,29 +31,54 @@ class HotelController extends AbstractController
     {
         $this->twilioSmsService = $twilioSmsService;
     }
-
-    #[Route('/', name: 'hotels', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/search', name: 'hotel_search')]
+    public function search(NormalizerInterface $Normalizer,EntityManagerInterface $entityManager,Request $request, HotelRepository $hotelRepository): Response
     {
         $users = $entityManager
-            ->getRepository(Utilisateur::class)
-            ->findAll();
+        ->getRepository(Utilisateur::class)
+        ->findAll();
         $hotels = $entityManager
-            ->getRepository(Hotel::class)
-            ->findAll();
+        ->getRepository(Hotel::class)
+        ->findAll();
         $commentaires = $entityManager
-            ->getRepository(Commentaire::class)
-            ->findAll();
+        ->getRepository(Commentaire::class)
+        ->findAll();
         $rates = $entityManager
-            ->getRepository(RateHotel::class)
-            ->findAll();
+        ->getRepository(RateHotel::class)
+        ->findAll();
+        $repository = $this->getDoctrine()->getRepository(Hotel::class);
+        $query = $request->query->get('q');
+        $hotels = $hotelRepository->findByNom($query);
+        $jsonContent = $Normalizer->normalize($hotels, 'json',['groups'=>'hotels']);
+        $retour=json_encode($jsonContent);
+        return new Response($retour);
+       
+    }
+    #[Route('/', name: 'hotels', methods: ['GET'])]
+    public function index(EntityManagerInterface $entityManager ,Request $request, HotelRepository $hotelRepository): Response
+    {
+        $users = $entityManager
+        ->getRepository(Utilisateur::class)
+        ->findAll();
+    $hotels = $entityManager
+        ->getRepository(Hotel::class)
+        ->findAll();
+    $commentaires = $entityManager
+        ->getRepository(Commentaire::class)
+        ->findAll();
+    $rates = $entityManager
+        ->getRepository(RateHotel::class)
+        ->findAll();
+    $query = $request->query->get('q');
+    $hotels = $hotelRepository->findByNom($query);
 
-        return $this->render('hotel/index.html.twig', [
-            'hotels' => $hotels,
-            'commentaires' => $commentaires,
-            'rates' => $rates,
-            'users' => $users,
-        ]);
+    return $this->render('hotel/index.html.twig', [
+        'hotels' => $hotels,
+        'commentaires' => $commentaires,
+        'rates' => $rates,
+        'users' => $users,
+        'query' => $query,
+    ]);
     }
 
     #[Route('/{idh}', name: 'app_hotel_show', methods: ['GET'])]
@@ -67,11 +91,10 @@ class HotelController extends AbstractController
 
     #[Route('/{id}/comment/add', name: 'app_hotel_comment', methods: ['GET', 'POST'])]
     
-    public function addComment(Request $request, Hotel $hotel, EntityManagerInterface $entityManager,Security $security)
+    public function addComment(Request $request, Hotel $hotel, EntityManagerInterface $entityManager)
 {
-    $user = $security->getUser();
     $now = new DateTime();
-    //$user = $entityManager->find(Utilisateur::class, 21);
+    $user = $entityManager->find(Utilisateur::class, 21);
     $comment = new Commentaire();
     $comment->setIdHotel($hotel->getIdh());
     $comment->setDateajc($now);
@@ -124,17 +147,16 @@ return $this->render('hotel/comment.html.twig', [
 
 #[Route('/{id}/rate/add', name: 'app_hotel_rate', methods: ['GET', 'POST'])]
     
-public function addRate(Request $request, Hotel $hotel, EntityManagerInterface $entityManager,Security $security)
+public function addRate(Request $request, Hotel $hotel, EntityManagerInterface $entityManager)
 {
-    $user = $security->getUser();
-    //$user = $entityManager->find(Utilisateur::class, 21);
-    $rate = new RateHotel();
-    $rate->setIdHotel($hotel);
-    $form = $this->createForm(RateHotelType::class, $rate);
-    $form->handleRequest($request);
+$user = $entityManager->find(Utilisateur::class, 21);
+$rate = new RateHotel();
+$rate->setIdHotel($hotel);
+$rate->setIdUser($user->getIduser());
+$form = $this->createForm(RateHotelType::class, $rate);
+$form->handleRequest($request);
 
 if ($form->isSubmitted() && $form->isValid()) {
-    $rate->setIdUser($user->getIduser());
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->persist($rate);
     $entityManager->flush();
@@ -151,18 +173,18 @@ return $this->render('hotel/rate.html.twig', [
 
 
 #[Route('/{id}/reserver', name: 'app_reservation_hotel', methods: ['GET', 'POST'])]
-public function reserverHotel(Request $request, ReservationRepository $reservationRepository, UtilisateurRepository $userRepository, Hotel $hotel,    Security $security): Response
+public function reserverHotel(EntityManagerInterface $entityManager,Request $request, ReservationRepository $reservationRepository, UtilisateurRepository $userRepository, Hotel $hotel): Response
 {
-    $user = $security->getUser();
     $reservation = new Reservation();
-    //$user = $userRepository->find(21);
+    $user = $entityManager->find(Utilisateur::class, 21);
+    
     $form = $this->createForm(ReservationType::class, $reservation);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
         $now = new DateTime();
         $reservation->setDate($now);
-        $reservation->setUser($user);
+        $reservation->setIdUser($user->getIduser());
         $reservation->setHotel($hotel);
         
         $reservationRepository->save($reservation, true);

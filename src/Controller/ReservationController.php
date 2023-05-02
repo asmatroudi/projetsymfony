@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Reservation;
+use App\Entity\Utilisateur;
 use App\Form\ReservationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +17,16 @@ class ReservationController extends AbstractController
     #[Route('/', name: 'app_reservation_index', methods: ['GET'])]
     public function index(EntityManagerInterface $entityManager): Response
     {
+        $user = $entityManager->find(Utilisateur::class, 21);
         $reservations = $entityManager
             ->getRepository(Reservation::class)
             ->findAll();
+
+        foreach ($reservations as $key => $reservation) {
+            if ($reservation->getUser() != $user) {
+                unset($reservations[$key]);
+            }
+        }
 
         return $this->render('reservation/index.html.twig', [
             'reservations' => $reservations,

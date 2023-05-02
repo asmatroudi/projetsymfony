@@ -84,7 +84,7 @@ class Activities
      *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="auteur", referencedColumnName="iduser")
+     *   @ORM\JoinColumn(name="auteur", referencedColumnName="id")
      * })
      * @Assert\NotBlank()
      */

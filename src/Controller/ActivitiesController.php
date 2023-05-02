@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use DateTime;
-use Symfony\Component\Security\Core\Security;
 
 #[Route('/activities')]
 class ActivitiesController extends AbstractController
@@ -41,12 +40,10 @@ class ActivitiesController extends AbstractController
 
 
     #[Route('/{id}/participer', name: 'app_participation_activity_participer', methods: ['GET', 'POST'])]
-    public function participerActivity(Security $security,Request $request, ParticipationActivityRepository $participationRepository, UtilisateurRepository $userRepository, Activities $activity): Response
+    public function participerActivity(Request $request, ParticipationActivityRepository $participationRepository, UtilisateurRepository $userRepository, Activities $activity): Response
     {
-        $user = $security->getUser();
-
         $participation = new ParticipationActivity();
-        //$user = $userRepository->find(21);
+        $user = $userRepository->find(21);
         $form = $this->createForm(ParticipationActivityType::class, $participation);
         $form->handleRequest($request);
     

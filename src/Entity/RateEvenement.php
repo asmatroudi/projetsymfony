@@ -31,16 +31,16 @@ class RateEvenement
     /**
      * @var float|null
      *
-     * @ORM\Column(name="rate", type="float", precision=10, scale=0, nullable=true)
+     * @ORM\Column(name="rate", type="float", precision=10, scale=0, nullable=true, options={"default"="NULL"})
      */
-    private $rate ;
+    private $rate = NULL;
 
     /**
      * @var \Utilisateur
-     * @ORM\Column(name="id_user")
+     *
      * @ORM\ManyToOne(targetEntity="Utilisateur")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="iduser", referencedColumnName="iduser")
+     *   @ORM\JoinColumn(name="id_user", referencedColumnName="idUser")
      * })
      */
     private $idUser;

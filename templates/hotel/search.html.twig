@@ -66,9 +66,13 @@
 			{{ message }}
 		</div>
 	{% endfor %}
-	
 	<a style="margin: 50px 0 50px 100px;background-color: #226D68;color: white;padding: 14px 25px;text-align: center;text-decoration: none;" href="{{ path('app_reservation_index') }}" class="price-btn">Mes Réservations Hotels</a>
-	<input type="text" id="search" class="form-control" placeholder="Search">
+	<form id="search-form" action="{{ path('hotel_search') }}" method="get" style="margin: 30px 0 50px 100px;">
+		<div class="form-group">
+			<input type="text" name="q" class="form-control" value="{{ query }}">
+		</div>
+		<button type="submit" class="btn btn-primary" style="background-color: #226D68;">Search</button>
+	</form>
 	<div class="middle-content">
 		<div style="margin-bottom: 60px;" class="container">
 			<div class="row">
@@ -85,7 +89,6 @@
 							<!-- /.list-thumb -->
 							<div class="list-content">
 								<div style="display: flex;">
-
 									<h5 style="margin-left: 0; margin-right: auto;">{{ hotel.site }}</h5>
 									<h5 style="margin-right: 0; margin-left: auto; color: #78b999;">
 										{% if hotel.nbEtoile <= 0 %}
@@ -103,9 +106,7 @@
 									<span style="margin-right: 0; margin-left: auto; color: #78b999;">{{ hotel.price }}
 										TND</span>
 								</div>
-								
 								<a href="{{ path('app_reservation_hotel', {'id': hotel.idh}) }}" class="price-btn">Réserver</a>
-								
 								<div style="display: flex;">
 									<a style="margin-left: 0; margin-right: auto;" href="{{ path('app_hotel_comment', {'id': hotel.idh}) }}">Add a comment</a>
 									<a style="margin-left: auto; margin-right: 0;" href="{{ path('app_hotel_rate', {'id': hotel.idh}) }}">Add a rating</a>
@@ -119,7 +120,7 @@
 													{{ user.prenom }}</h5>
 												<div style="display: flex;">
 													<span style="margin-left: 0; margin-right: auto; text-transform: none;">{{ commentaire.contenue }}</span>
-													{% if user.iduser == 26 %}
+													{% if user.iduser == 21 %}
 														<a style="margin-left: auto; margin-right: 0;" href="{{ path('app_hotel_comment_edit', {'id': commentaire.idcom}) }}">Edit</a>
 														<form style="margin-left: auto; margin-right: 0;" method="post" action="{{ path('app_commentaire_delete', {'idcom': commentaire.idcom}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
 															<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ commentaire.idcom) }}">
